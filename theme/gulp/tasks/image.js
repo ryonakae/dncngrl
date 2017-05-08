@@ -43,12 +43,12 @@ gulp.task('image:sprite', (callback) => {
     .pipe(plumber())
     .pipe(spritesmith({
       imgName: 'sprite.png',
-      imgPath: '../images/sprite.png',
+      imgPath: filePath.theme.images + 'sprite.png',
       cssName: '_sprite.scss',
       padding: 10,
       retinaSrcFilter: filePath.dev.sprite + '*-2x.png',
       retinaImgName: 'sprite-2x.png',
-      retinaImgPath: '../images/sprite-2x.png'
+      retinaImgPath: filePath.theme.images + 'sprite-2x.png'
     }));
 
   const imgStream = spriteData.img

@@ -16,5 +16,9 @@ export default {
     scripts: './public/assets/scripts/',
     images:  './public/assets/images/',
     fonts:   './public/assets/fonts/'
+  },
+
+  theme: {
+    images: '/wp-content/themes/d/assets/images/'
   }
 };

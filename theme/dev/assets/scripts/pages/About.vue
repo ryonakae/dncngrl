@@ -1,10 +1,24 @@
 <template>
   <div class="page">
-    <h2 class="title">About</h2>
+    <h2 class="title">{{pageTitle}}</h2>
     <p>あばうと</p>
     <router-link :to="'/'">Index</router-link>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    pageTitle() {
+      return this.$store.state.pageTitle;
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch('changePageTitle', 'ABOUT');
+  }
+};
+</script>
 
 <style lang='scss' scoped>
 @import "bourbon";

@@ -9,6 +9,9 @@ import App from './App.vue';
 import Index from './pages/Index.vue';
 import About from './pages/About.vue';
 
+// import vuex store
+import store from './store';
+
 // detect routes
 const routes = [
   {path:'/', component: Index},
@@ -27,6 +30,7 @@ const router = new VueRouter({
 const app = new Vue({
   router: router,
   el: '#app',
+  store: store,
   render: (h) => h(App)
 });
 
