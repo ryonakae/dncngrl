@@ -4,8 +4,8 @@ logs
 *.log
 npm-debug.log*
 
-server/.env
-server/backup/data/*
+.env
+backup/data/*
 
 theme/node_modules
 theme/public/*

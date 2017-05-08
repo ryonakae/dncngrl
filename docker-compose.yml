@@ -38,7 +38,7 @@ services:
       - data
     volumes:
       - ./setting/php:/usr/local/etc/php:ro
-      - ../theme/public:/var/www/html/wp-content/themes/d:ro
+      - ./theme/public:/var/www/html/wp-content/themes/d:ro
     networks:
       - back-dncngrl
 
