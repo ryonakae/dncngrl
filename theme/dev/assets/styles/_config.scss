@@ -3,15 +3,15 @@ $color_key: #999;
 
 
 // bg color;
-$bgColor_default: #fff;
+$bgColor_default: #000;
 
 
 // border color;
-$borderColor_default: rgba(#000, 0.05);
+$borderColor_default: rgba(#fff, 0.05);
 
 
 // text color;
-$textColor_default: #1a1a1a;
+$textColor_default: #fff;
 
 
 // font family;
@@ -19,8 +19,8 @@ $fontFamily_default: "Neue Frutiger", "Avenir Next", Avenir, "Helvetica Neue", H
 
 
 // font size;
-$fontSize_default: 1.8rem;
-$fontSize_small: 1.4rem;
+$fontSize_default: 1.3rem;
+$fontSize_small: 1.0rem;
 
 
 // line height;

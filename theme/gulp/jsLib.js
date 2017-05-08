@@ -7,7 +7,6 @@ export default {
     'jquery.min.js',
     'bluebird.min.js',
     'imagesloaded.pkgd.min.js',
-    'pixi.min.js',
     'TweenMax.min.js',
   ]
 };

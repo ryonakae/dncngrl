@@ -5,6 +5,7 @@
   <title><?php bloginfo('name'); ?></title>
   <?php wp_head(); ?>
   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/styles/common.css">
+  <script src="<?php echo get_template_directory_uri(); ?>/assets/scripts/lib.js"></script>
 </head>
 <body>
   <div id="app"></div>
