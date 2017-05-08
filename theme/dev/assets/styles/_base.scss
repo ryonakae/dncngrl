@@ -1,0 +1,89 @@
+@import "bourbon";
+@import "_config";
+@import "_mixin";
+
+// reset / normalize
+@import "lib/reset";
+
+// reset box-sizing
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+
+// web fonts
+@include font-face("Neue Frutiger", "../fonts/NeueFrutiger-Regular", $file-formats: woff);
+@include font-face("Neue Frutiger", "../fonts/NeueFrutiger-Italic", normal, italic, $file-formats: woff);
+@include font-face("Neue Frutiger", "../fonts/NeueFrutiger-Bold", bold, $file-formats: woff);
+@include font-face("Neue Frutiger", "../fonts/NeueFrutiger-BoldIt", bold, italic, $file-formats: woff);
+@include font-face("Noto Sans Japanese", "../fonts/NotoSansJP-Regular", $file-formats: woff);
+@include font-face("Noto Sans Japanese", "../fonts/NotoSansJP-Bold", bold, $file-formats: woff);
+
+
+html {
+  font-size: 62.5%;
+}
+
+
+body {
+  background-color: $bgColor_default;
+  font-family: $fontFamily_default;
+  font-size: $fontSize_default;
+  line-height: $lineHeight_default;
+  letter-spacing: $letterSpacing_default;
+  font-kerning: normal;
+  font-feature-settings: "palt" on;
+  color: $textColor_default;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+
+  & ::-moz-selection {
+    background-color: rgba($textColor_default, 0.85);
+    color: $bgColor_default;
+  }
+  & ::selection {
+    background-color: rgba($textColor_default, 0.85);
+    color: $bgColor_default;
+  }
+
+  @include mq(
+    "only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min--moz-device-pixel-ratio: 1.5),
+    only screen and (-o-min-device-pixel-ratio: 1.5/1),
+    only screen and (min-resolution: 144dpi),
+    only screen and (min-resolution: 1.5dppx)"
+  ) {
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+
+%link {
+  color: inherit;
+  text-decoration: underline;
+
+  body.is--pc & {
+    transition: opacity $duration_quick ease;
+
+    &:hover {
+      opacity: 0.7;
+      text-decoration: none;
+    }
+  }
+}
+
+
+a {
+  @extend %link;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: $lineHeight_title;
+}
