@@ -2,16 +2,27 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
+import superagent from 'superagent';
+
 export default new Vuex.Store({
+  // development時のみ厳格モード有効
+  strict: process.env.NODE_ENV !== 'production',
+
   state: {
     pageTitle: '',
-    siteTitle: 'Dancing Girl.'
+    siteTitle: 'Dancing Girl.',
+    postData: [],
+    siteUrl: location.protocol + '//' + location.host
   },
 
   // 同期、単一の処理
   mutations: {
-    CHANGE_TITLE(state, title) {
+    SET_PAGE_TITLE(state, title) {
       state.pageTitle = title;
+    },
+
+    SET_POST_DATA(state, data) {
+      state.postData = data;
     }
   },
 
@@ -19,7 +30,7 @@ export default new Vuex.Store({
   actions: {
     changeTitle(context, title) {
       // pageTitleを変更
-      context.commit('CHANGE_TITLE', title);
+      context.commit('SET_PAGE_TITLE', title);
 
       // document titleも変更
       if (title === '') {
@@ -29,5 +40,18 @@ export default new Vuex.Store({
         document.title = title + ' - ' + context.state.siteTitle;
       }
     },
+
+    getPosts(context) {
+      superagent
+        .get(context.state.siteUrl + '/wp-json/wp/v2/posts')
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            context.commit('SET_POST_DATA', res.body);
+          }
+        });
+    }
   }
 });

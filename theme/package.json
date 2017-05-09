@@ -5,7 +5,7 @@
     ]
   },
   "scripts": {
-    "start": "gulp",
+    "start": "gulp --env=development",
     "build": "gulp --env=production"
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
+    "superagent": "^3.5.2",
     "ua-parser-js": "^0.7.12",
     "vue": "^2.3.2",
     "vue-router": "^2.5.3",

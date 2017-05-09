@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
 import filePath from '../gulp/filePath';
-import env from '../gulp/env';
 import autoprefixer from 'autoprefixer';
 import bourbon from 'node-bourbon';
 
@@ -76,6 +75,7 @@ export default {
     alias: {
       // webpackでheadに挿入したりbase64エンコードしてcssに入れるファイルがあるパスを記述する
       styles: path.resolve(__dirname, '../' + filePath.dev.styles),
+      css: path.resolve(__dirname, '../' + filePath.public.styles),
       images: path.resolve(__dirname, '../' + filePath.public.images),
       fonts: path.resolve(__dirname, '../' + filePath.public.fonts)
     }
