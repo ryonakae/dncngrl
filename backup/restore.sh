@@ -6,8 +6,8 @@ docker run --rm -it --volumes-from brdr-data --volume $(pwd)/backup/data:/backup
 # restore db-data
 docker run --rm -it --volumes-from brdr-data --volume $(pwd)/backup/data:/backup busybox tar xvf /backup/db-data.tar
 
-# restart mysql service
-docker restart dncngrl-mysql
+# restart
+docker-compose restart
 
 # delete backup files
 # rm -rf $(pwd)/backup/data/db.sql
