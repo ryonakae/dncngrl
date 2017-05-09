@@ -38,17 +38,18 @@ gulp.task('image:min', () => {
 
 
 // image sprite
+// webpackのaliasで解決するために、imgPath,retinaImgPathは'images/...'というパスにする
 gulp.task('image:sprite', (callback) => {
   const spriteData = gulp.src(filePath.dev.sprite + '*.png')
     .pipe(plumber())
     .pipe(spritesmith({
       imgName: 'sprite.png',
-      imgPath: filePath.theme.images + 'sprite.png',
+      imgPath: 'images/sprite.png',
       cssName: '_sprite.scss',
       padding: 10,
       retinaSrcFilter: filePath.dev.sprite + '*-2x.png',
       retinaImgName: 'sprite-2x.png',
-      retinaImgPath: filePath.theme.images + 'sprite-2x.png'
+      retinaImgPath: 'images/sprite-2x.png'
     }));
 
   const imgStream = spriteData.img

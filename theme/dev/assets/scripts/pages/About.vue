@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 class="title">{{pageTitle}}</h2>
+    <h2 :class="$style.title">{{pageTitle}}</h2>
     <p>あばうと</p>
     <router-link :to="'/'">Index</router-link>
   </div>
@@ -20,7 +20,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss' module>
 @import "bourbon";
 @import "~styles/config";
 @import "~styles/mixin";

@@ -1,6 +1,6 @@
 <template>
-  <header class="header">
-    <h1 class="logo">
+  <header :class="$style.header">
+    <h1 :class="$style.logo">
       <router-link :to="'/'">Dancing Girl.</router-link>
     </h1>
   </header>
@@ -11,7 +11,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss' module>
 @import "bourbon";
 @import "~styles/config";
 @import "~styles/mixin";

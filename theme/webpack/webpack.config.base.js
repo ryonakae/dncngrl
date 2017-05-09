@@ -15,6 +15,18 @@ export default {
   },
   module: {
     rules: [
+      // 画像とフォントは100KB以下ならbase64エンコード
+      // base64エンコードしない場合はテーマ内の指定のディレクトリのパスを入れる
+      // images
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'url-loader?limit=100000&name=' + filePath.theme.images + '[name].[ext]',
+      },
+      // webfont
+      {
+        test: /\.(otf|eot|svg|ttf|woff|woff2)$/,
+        loader: 'url-loader?limit=100000&name=' + filePath.theme.fonts + '[name].[ext]',
+      },
       // eslint
       {
         test: /\.(js|vue)$/,
@@ -62,7 +74,10 @@ export default {
   },
   resolve: {
     alias: {
-      styles: path.resolve(__dirname, '../' + filePath.dev.styles)
+      // webpackでheadに挿入したりbase64エンコードしてcssに入れるファイルがあるパスを記述する
+      styles: path.resolve(__dirname, '../' + filePath.dev.styles),
+      images: path.resolve(__dirname, '../' + filePath.public.images),
+      fonts: path.resolve(__dirname, '../' + filePath.public.fonts)
     }
   }
 }
