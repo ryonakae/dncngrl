@@ -10,15 +10,24 @@ export default new Vuex.Store({
 
   // 同期、単一の処理
   mutations: {
-    CHANGE_PAGE_TITLE(state, title) {
+    CHANGE_TITLE(state, title) {
       state.pageTitle = title;
     }
   },
 
   // 非同期、複数のmutationsを組み合わせた処理
   actions: {
-    changePageTitle(context, title) {
-      context.commit('CHANGE_PAGE_TITLE', title);
-    }
+    changeTitle(context, title) {
+      // pageTitleを変更
+      context.commit('CHANGE_TITLE', title);
+
+      // document titleも変更
+      if (title === '') {
+        document.title = context.state.siteTitle;
+      }
+      else {
+        document.title = title + ' - ' + context.state.siteTitle;
+      }
+    },
   }
 });

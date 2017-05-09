@@ -11,6 +11,10 @@ import HeaderComponent from './components/Header.vue';
 export default {
   components: {
     HeaderComponent
+  },
+
+  created() {
+    this.$store.dispatch('changeTitle', '');
   }
 };
 </script>

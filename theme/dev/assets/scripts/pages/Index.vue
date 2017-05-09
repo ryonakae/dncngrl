@@ -17,7 +17,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('changePageTitle', 'TOP');
+    this.$store.dispatch('changeTitle', '');
   }
 };
 </script>
