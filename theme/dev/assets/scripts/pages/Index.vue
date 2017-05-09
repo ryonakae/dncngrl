@@ -19,8 +19,12 @@ export default {
 
   mounted() {
     this.$store.dispatch('changeTitle', '');
-    this.$store.dispatch('getPosts');
-    console.log(this.postData);
+
+    // エントリーの一覧を取得(idを0にする)
+    this.$store.dispatch('getPosts', [0, {per_page:20, offset:0}]);
+
+    // 個別のエントリーを取得(idを指定、optionsはnull)
+    this.$store.dispatch('getPosts', [4, null]);
   }
 };
 </script>

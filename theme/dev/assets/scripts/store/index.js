@@ -41,14 +41,34 @@ export default new Vuex.Store({
       }
     },
 
-    getPosts(context) {
+    // 記事一覧を取得
+    // idが0だと記事一覧を取得する
+    getPosts(context, [id, options]) {
+      let getUrl;
+      let queryOptions;
+
+      if (id === 0) {
+        getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
+        queryOptions = Object.assign(
+          {_embed: null},
+          options
+        );
+      }
+      else {
+        getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts/' + id;
+        queryOptions = {_embed: null};
+      }
+      console.log(getUrl, queryOptions);
+
       superagent
-        .get(context.state.siteUrl + '/wp-json/wp/v2/posts')
+        .get(getUrl)
+        .query(queryOptions)
         .end((err, res) => {
           if (err) {
             console.log(err);
           }
           else {
+            console.log(res.body);
             context.commit('SET_POST_DATA', res.body);
           }
         });
