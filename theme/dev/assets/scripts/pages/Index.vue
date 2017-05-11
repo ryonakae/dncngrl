@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 :class="$style.title">{{pageTitle}}</h2>
+    <h2 :class="$style.title">Index</h2>
     <div>{{postData}}</div>
     <router-link :to="'/about'">About</router-link>
   </div>
