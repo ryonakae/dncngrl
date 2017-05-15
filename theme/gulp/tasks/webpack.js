@@ -3,7 +3,6 @@ import filePath from '../filePath';
 import env from '../env';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
-import plumber from 'gulp-plumber';
 
 
 let webpackConfig;
@@ -18,12 +17,7 @@ else if (env === 'production') {
 
 gulp.task('webpack', () => {
   return gulp
-    .src(filePath.dev.scripts + '**/*.{js,jsx,vue}')
-    .pipe(plumber({
-      errorHandler(err) {
-        this.emit('end');
-      }
-    }))
+    .src(filePath.dev.scripts + 'app.js')
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(filePath.public.scripts));
 });

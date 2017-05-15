@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="app"></div>
-  <script src="<?php echo get_template_directory_uri(); ?>/assets/scripts/bundle.js"></script>
+  <script src="<?php echo get_template_directory_uri(); ?>/assets/scripts/app.js"></script>
   <?php wp_footer(); ?>
 </body>
 </html>

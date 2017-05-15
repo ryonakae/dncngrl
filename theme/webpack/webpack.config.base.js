@@ -7,10 +7,10 @@ import bourbon from 'node-bourbon';
 
 export default {
   entry: [
-    filePath.dev.scripts + 'index.js'
+    filePath.dev.scripts + 'app.js'
   ],
   output: {
-    filename: 'bundle.js'
+    filename: 'app.js'
   },
   module: {
     rules: [
