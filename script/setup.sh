@@ -1,9 +1,8 @@
 #!/bin/sh
 
 # install & activate japanese lang file
-docker-compose run --rm wpcli \
-  core language install ja && \
-  core language activate ja
+docker-compose run --rm wpcli core language install ja
+docker-compose run --rm wpcli core language activate ja
 
 # remove default plugin
 docker-compose run --rm wpcli plugin delete \
