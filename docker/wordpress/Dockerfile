@@ -1,8 +1,19 @@
 FROM wordpress:4.7.4-php7.1-fpm
 
-# これから使う`wget`と`unzip`を入れる
+# これから使うaptを入れる
 RUN apt-get update
-RUN apt-get -y install wget unzip
+RUN apt-get -y install wget unzip curl sudo
+
+# sudo
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+USER docker
+CMD /bin/bash
+
+
+# WP-CLIをインストール
+RUN curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+COPY wp-su.sh /bin/wp
+RUN chmod +x /bin/wp-cli.phar /bin/wp
 
 # プラグインファイルの一時ダウンロード先
 WORKDIR /tmp/wp-plugins
