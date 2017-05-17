@@ -5,10 +5,10 @@ logs
 npm-debug.log*
 
 .env
-backup/data/*
+backup/*
 
-theme/node_modules
+node_modules
 theme/public/*
-theme/dev/assets/styles/_sprite.*
+theme/dev/assets/styles/_sprite.scss
 
 !.gitkeep
