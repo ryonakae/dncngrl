@@ -1,9 +1,9 @@
 <template>
-  <div class="page">
-    <h2 :class="$style.title">Index</h2>
-    <div>{{postData}}</div>
-    <router-link :to="'/about'">About</router-link>
-  </div>
+  <ul class="posts">
+    <li class="post" v-for="post in postData">
+      <img :src="post.acf.images[0].image">
+    </li>
+  </ul>
 </template>
 
 <script>

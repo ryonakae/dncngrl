@@ -58,7 +58,6 @@ export default new Vuex.Store({
         getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts/' + id;
         queryOptions = {_embed: null};
       }
-      console.log(getUrl, queryOptions);
 
       superagent
         .get(getUrl)
