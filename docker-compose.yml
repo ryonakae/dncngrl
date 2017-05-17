@@ -65,6 +65,18 @@ services:
     networks:
       - back-dncngrl
 
+  wpcli:
+    image: tatemz/wp-cli
+    container_name: dncngrl-wpcli
+    volumes_from:
+      - data
+    links:
+      - mysql:mysql
+    entrypoint: wp
+    command: '--info'
+    networks:
+      - back-dncngrl
+
 volumes:
   db-data:
   wp-data:
