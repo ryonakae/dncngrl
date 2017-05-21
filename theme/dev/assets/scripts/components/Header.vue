@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang='scss' module>
-@import "bourbon";
+@import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
 @import "~styles/sprite";

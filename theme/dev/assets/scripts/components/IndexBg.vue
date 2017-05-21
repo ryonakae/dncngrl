@@ -5,15 +5,15 @@
 <script>
   export default {
     computed: {
-      currentPostData() {
+      currentPost() {
         return this.$store.state.currentPostData;
       },
 
       bgImage() {
         let bgImage;
 
-        if (this.currentPostData.hasOwnProperty('acf')) {
-          bgImage = this.currentPostData.acf.images[0].image;
+        if (this.currentPost.hasOwnProperty('id')) {
+          bgImage = this.currentPost.acf.images[0].image;
         }
         else {
           bgImage = '';
@@ -26,7 +26,7 @@
 </script>
 
 <style lang='scss' module>
-@import "bourbon";
+@import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
 

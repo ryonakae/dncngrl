@@ -1,8 +1,8 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="(post, index) in allPost" :key="post.id" @mouseover="setCurrentPost(post)" :data-post-index="index">
-        <router-link :to="replacedPostUrl(post.link)" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></router-link>
+      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="setCurrentPost({})">
+        <router-link :to="post.slug" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></router-link>
       </li>
     </ul>
 
@@ -28,11 +28,6 @@ export default {
   },
 
   methods: {
-    replacedPostUrl(originalUrl) {
-      const regExp = new RegExp(this.siteUrl, 'g');
-      return originalUrl.replace(regExp, '');
-    },
-
     setCurrentPost(post) {
       return this.$store.dispatch('setCurrentPost', post);
     }
@@ -52,7 +47,7 @@ export default {
 </script>
 
 <style lang='scss' module>
-@import "bourbon";
+@import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
 
@@ -66,13 +61,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin: -60px -$margin_post 0 -$margin_post;
+  margin-top: -60px;
+  margin-right: -$margin_post;
+  margin-left: -$margin_post;
 }
 
 .post {
   width: calc(100% / 4 - (#{$margin_post} * 2));
-  height: calc((100vw - (#{$margin_page} + #{$margin_post}) * 2) / 4 - #{$margin_post});
-  margin: 60px $margin_post 0 $margin_post;
+  height: calc((100vw - (#{$margin_page} - #{$margin_post}) * 2) / 4 - #{$margin_post} * 2);
+  margin-top: 60px;
+  padding: 0 $margin_post;
 
   a {
     display: block;

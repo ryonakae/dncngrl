@@ -4,6 +4,8 @@ import filePath from '../gulp/filePath';
 import autoprefixer from 'autoprefixer';
 import bourbon from 'node-bourbon';
 
+console.log(bourbon.includePaths[0] + '_bourbon.scss');
+
 
 export default {
   entry: [
@@ -48,21 +50,13 @@ export default {
         exclude: /node_modules/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-            scss: 'vue-style-loader!css-loader!sass-loader?' + JSON.stringify({
-              includePaths: [].concat(bourbon.includePaths)
-            }),
-            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax?' + JSON.stringify({
-              includePaths: [].concat(bourbon.includePaths)
-            })
-          },
           postcss: [
             autoprefixer({
               browsers: [
-                'last 4 versions',
-                'ie >= 10',
-                'iOS >= 8.1',
-                'Android >= 4.4'
+                'last 2 versions',
+                'ie > 11',
+                'iOS >= 10',
+                'Android >= 5.0'
               ],
               cascade: false
             })
@@ -74,6 +68,7 @@ export default {
   resolve: {
     alias: {
       // webpackでheadに挿入したりbase64エンコードしてcssに入れるファイルがあるパスを記述する
+      bourbon: bourbon.includePaths[0] + '/_bourbon.scss',
       styles: path.resolve(__dirname, '../' + filePath.dev.styles),
       css: path.resolve(__dirname, '../' + filePath.public.styles),
       images: path.resolve(__dirname, '../' + filePath.public.images),
