@@ -19,12 +19,17 @@ export default {
 
 .header {
   @include clearfix;
+  position: fixed;
+  z-index: 3;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .logo {
   float: left;
-  margin-top: 40px;
-  margin-left: 40px;
 
   a {
     display: block;

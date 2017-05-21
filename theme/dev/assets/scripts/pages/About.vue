@@ -2,7 +2,7 @@
   <div class="page">
     <h2 :class="$style.title">{{pageTitle}}</h2>
     <p>あばうと</p>
-    <router-link :to="'/'">Index</router-link>
+    <router-link to="/">Index</router-link>
   </div>
 </template>
 
