@@ -16,6 +16,7 @@ gulp.task('bs:init', () => {
   return bs.init({
     open: false,
     notify: false,
+    port: 3000,
     reloadDelay: 300,
     ghostMode: false,
     proxy: {

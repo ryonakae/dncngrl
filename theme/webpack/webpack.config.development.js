@@ -5,13 +5,12 @@ import filePath from '../gulp/filePath';
 
 module.exports = merge(baseConfig, {
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client'
+    'webpack-hot-middleware/client',
+    'webpack/hot/only-dev-server'
   ],
   output: {
     publicPath: '/'
   },
-  devtool: 'inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify('development')
@@ -19,5 +18,6 @@ module.exports = merge(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
-  cache: false
+  devtool: 'inline-source-map',
+  cache: true
 });
