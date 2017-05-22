@@ -1,8 +1,10 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost()">
-        <router-link :to="post.slug" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></router-link>
+      <li :class="$style.post" v-for="post in allPost" :key="post.id">
+        <router-link :to="post.slug">
+          <index-thumb-component :post="post"></index-thumb-component>
+        </router-link>
       </li>
     </ul>
 
@@ -12,10 +14,12 @@
 
 <script>
 import IndexBgComponent from '../components/IndexBg.vue';
+import IndexThumbComponent from '../components/IndexThumb.vue';
 
 export default {
   components: {
-    IndexBgComponent
+    IndexBgComponent,
+    IndexThumbComponent
   },
 
   computed: {
@@ -28,10 +32,6 @@ export default {
   },
 
   methods: {
-    setCurrentPost(post) {
-      return this.$store.dispatch('setCurrentPost', post);
-    },
-
     clearCurrentPost() {
       return this.$store.dispatch('setCurrentPost', {});
     }
@@ -80,9 +80,6 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: 50% 50%;
   }
 }
 </style>

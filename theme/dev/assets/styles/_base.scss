@@ -72,11 +72,11 @@ body {
   color: inherit;
   text-decoration: underline;
 
-  body.is--pc & {
-    transition: opacity $duration_quick $easing;
+  body.is-pc & {
+    // transition: opacity $duration_quick $easing;
 
     &:hover {
-      opacity: 0.7;
+      // opacity: 0.7;
       text-decoration: none;
     }
   }
@@ -90,4 +90,68 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: $lineHeight_title;
+}
+
+
+// glitch
+@keyframes glitch_flash {
+  5%  { opacity: 1 }
+  7%  { opacity: 0 }
+  8%  { opacity: 1 }
+  60% { opacity: 1 }
+  61% { opacity: 0 }
+  62% { opacity: 1 }
+}
+@keyframes glitch_blue {
+  0%   { transform: translate(4px, 5px); }
+  25%  { transform: translate(6px, 2px); }
+  50%  { transform: translate(2px, -2px); }
+  75%  { transform: translate(2px, 1px); }
+  100% { transform: translate(-4px, -3px); }
+}
+@keyframes glitch_green {
+  0%   { transform: translate(2px, -2px); }
+  25%  { transform: translate(4px, 5px); }
+  50%  { transform: translate(-4px, -3px); }
+  75%  { transform: translate(6px, 2px); }
+  100% { transform: translate(2px, 1px); }
+}
+@keyframes glitch_red {
+  0%   { transform: translate(2px, 1px); }
+  25%  { transform: translate(6px, 2px); }
+  50%  { transform: translate(-2px, -4px); }
+  75%  { transform: translate(4px, 5px); }
+  100% { transform: translate(2px, -2px); }
+}
+@keyframes glitch_image {
+  0%   { mix-blend-mode: inherit; }
+  25%  { mix-blend-mode: luminosity; }
+  50%  { mix-blend-mode: difference; }
+  75%  { mix-blend-mode: hue; }
+  100% { mix-blend-mode: screen; }
+}
+
+.glitch {
+  body.is-pc &:hover {
+    animation: glitch_flash .2s steps(6);
+
+    .item {
+      animation-duration: .1s;
+      animation-timing-function: steps(5);
+
+      &.blue {
+        animation-name: glitch_blue;
+      }
+      &.green {
+        animation-name: glitch_green;
+      }
+      &.red {
+        animation-name: glitch_red;
+      }
+    }
+
+    .image {
+      animation: glitch_image .1s linear;
+    }
+  }
 }
