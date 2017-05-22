@@ -17,54 +17,50 @@ export default {
 
   // 記事一覧を取得
   getAllPosts(context, options) {
-    const d = new $.Deferred();
+    return new Promise((resolve, reject)=>{
+      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
+      const queryOptions = Object.assign({_embed: null}, options);
 
-    const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
-    const queryOptions = Object.assign({_embed: null}, options);
-
-    superagent
-      .get(getUrl)
-      .query(queryOptions)
-      .end((err, res) => {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          console.log(res.body);
-          context.commit('SET_ALL_POST_DATA', res.body);
-          d.resolve();
-        }
-      });
-
-    return d.promise();
+      superagent
+        .get(getUrl)
+        .query(queryOptions)
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(res.body);
+            context.commit('SET_ALL_POST_DATA', res.body);
+            resolve();
+          }
+        });
+    });
   },
 
   // 単一の投稿を取得
   // slugは絶対に重複しないという前提
   getPost(context, slug) {
-    const d = new $.Deferred();
+    return new Promise((resolve, reject)=>{
+      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
+      const queryOptions = {
+        _embed: null,
+        slug: slug
+      };
 
-    const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
-    const queryOptions = {
-      _embed: null,
-      slug: slug
-    };
-
-    superagent
-      .get(getUrl)
-      .query(queryOptions)
-      .end((err, res) => {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          console.log(res.body[0]);
-          context.commit('SET_CURRENT_POST_DATA', res.body[0]);
-          d.resolve();
-        }
-      });
-
-    return d.promise();
+      superagent
+        .get(getUrl)
+        .query(queryOptions)
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(res.body[0]);
+            context.commit('SET_CURRENT_POST_DATA', res.body[0]);
+            resolve();
+          }
+        });
+    });
   },
 
   // currentPostDataにpostオブジェクトをセット

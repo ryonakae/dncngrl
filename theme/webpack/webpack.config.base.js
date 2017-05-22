@@ -4,8 +4,6 @@ import filePath from '../gulp/filePath';
 import autoprefixer from 'autoprefixer';
 import bourbon from 'node-bourbon';
 
-console.log(bourbon.includePaths[0] + '_bourbon.scss');
-
 
 export default {
   entry: [

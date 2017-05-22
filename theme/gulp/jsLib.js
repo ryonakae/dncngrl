@@ -8,5 +8,6 @@ export default {
     'bluebird.min.js',
     'imagesloaded.pkgd.min.js',
     'TweenMax.min.js',
+    'swiper.min.js'
   ]
 };
