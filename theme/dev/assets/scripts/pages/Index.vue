@@ -71,7 +71,7 @@ export default {
 }
 
 .post {
-  width: calc(100% / 4 - (#{$margin_post} * 2));
+  width: (100% / 4);
   height: calc((100vw - (#{$margin_page} - #{$margin_post}) * 2) / 4 - #{$margin_post} * 2);
   margin-top: 60px;
   padding: 0 $margin_post;

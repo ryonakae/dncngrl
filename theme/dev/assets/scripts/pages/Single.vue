@@ -45,6 +45,11 @@ export default {
   },
 
   methods: {
+    init() {
+      this.$store.dispatch('changeTitle', this.currentPost.title.rendered);
+      if (this.hasMultipleImage) this.initSwiper();
+    },
+
     initSwiper() {
       console.log('swiper initialized');
       new Swiper('.swiper-container', {
@@ -62,16 +67,14 @@ export default {
     // currentPostDataがある(indexから遷移した時)
     // 通信せずにcurrentPostDataをそのまま使う
     if (this.currentPost.hasOwnProperty('id')) {
-      this.$store.dispatch('changeTitle', this.currentPost.title.rendered);
-      if (this.hasMultipleImage) this.initSwiper();
+      this.init();
     }
     // currentPostDataがない場合(url直接叩いたとき)
     // →getPost()実行してcurrentPostDataにデータを入れる
     else {
       this.$store.dispatch('getPost', this.$route.params.slug)
       .then(()=>{
-        this.$store.dispatch('changeTitle', this.currentPost.title.rendered);
-        if (this.hasMultipleImage) this.initSwiper();
+        this.init();
       });
     }
   }

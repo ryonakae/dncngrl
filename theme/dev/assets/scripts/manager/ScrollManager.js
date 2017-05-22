@@ -1,4 +1,4 @@
-// require jQuery & resizeManager
+// require jQuery, resizeManager & utilManager
 export default class ScrollManager {
   constructor(options){
     this.resizeManager = options.resizeManager;
