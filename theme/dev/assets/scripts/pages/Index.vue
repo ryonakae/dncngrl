@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="setCurrentPost({})">
+      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost()">
         <router-link :to="post.slug" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></router-link>
       </li>
     </ul>
@@ -30,6 +30,10 @@ export default {
   methods: {
     setCurrentPost(post) {
       return this.$store.dispatch('setCurrentPost', post);
+    },
+
+    clearCurrentPost() {
+      return this.$store.dispatch('setCurrentPost', {});
     }
   },
 
@@ -38,7 +42,7 @@ export default {
     this.$store.dispatch('changeTitle', '');
 
     // currentPostDataを空にする(bgをリセット)
-    this.$store.dispatch('setCurrentPost', {});
+    this.clearCurrentPost();
 
     // 投稿一覧を取得
     this.$store.dispatch('getAllPosts', {per_page:20, offset:0});
