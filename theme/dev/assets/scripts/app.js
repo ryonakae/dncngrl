@@ -1,5 +1,18 @@
 'use strict';
 
+// import, initialize and export manager
+import UtilManager from './manager/UtilManager';
+import ResizeManager from './manager/ResizeManager';
+import ScrollManager from './manager/ScrollManager';
+export const utilManager = new UtilManager();
+export const resizeManager = new ResizeManager();
+export const scrollManager = new ScrollManager({
+  resizeManager: resizeManager,
+  utilManager: utilManager,
+  nameSpace: 'scrollManager'
+});
+
+// import vue library
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -36,5 +49,5 @@ const app = new Vue({
   render: (h) => h(App)
 });
 
-// mount app
-// app.$mount('#app');
+// Hot Module Replacementに対応させる
+if (module.hot) module.hot.accept();
