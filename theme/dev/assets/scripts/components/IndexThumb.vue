@@ -79,10 +79,9 @@ export default {
     this.$glitch = $(this.$refs.glitch);
 
     this.$glitch.imagesLoaded(()=>{
-      this.$glitch.removeClass(this.$style.hidden);
       this.resizeImage();
-
       resizeManager.add(this.resizeImage.bind(this));
+      this.$glitch.removeClass(this.$style.hidden);
     });
   }
 };

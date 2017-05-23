@@ -60,7 +60,8 @@ export default {
 @import "~styles/mixin";
 
 .page {
-  margin: 125px $margin_page $margin_page;
+  margin: 0 $margin_page $margin_page;
+  padding-top: 125px;
 }
 
 .posts {

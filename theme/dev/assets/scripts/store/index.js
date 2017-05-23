@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const state = {
   pageTitle: '',
   siteTitle: document.title,
-  siteUrl: process.env.NODE_ENV === 'production' ? location.protocol + '//' + location.host : 'http://dncngrl.dev',
+  siteUrl: location.protocol + '//' + location.host,
   allPostData: [],
   currentPostData: {}
 };

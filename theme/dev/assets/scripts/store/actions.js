@@ -24,6 +24,10 @@ export default {
       superagent
         .get(getUrl)
         .query(queryOptions)
+        .timeout({
+          response: 10000,
+          deadline: 60000
+        })
         .end((err, res) => {
           if (err) {
             console.log(err);
@@ -50,6 +54,10 @@ export default {
       superagent
         .get(getUrl)
         .query(queryOptions)
+        .timeout({
+          response: 10000,
+          deadline: 60000
+        })
         .end((err, res) => {
           if (err) {
             console.log(err);
@@ -58,6 +66,30 @@ export default {
             console.log(res.body[0]);
             context.commit('SET_CURRENT_POST_DATA', res.body[0]);
             resolve();
+          }
+        });
+    });
+  },
+
+  // タグidからタグの名前を取得
+  // resolveの引数にタグ情報を入れて、thenに渡す
+  getTagNameById(context, id) {
+    return new Promise((resolve, reject)=>{
+      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/tags/' + id;
+
+      superagent
+        .get(getUrl)
+        .timeout({
+          response: 10000,
+          deadline: 60000
+        })
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(res.body);
+            resolve(res.body);
           }
         });
     });

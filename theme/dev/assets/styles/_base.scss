@@ -46,6 +46,8 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: unset;
 
   & ::-moz-selection {
     background-color: rgba($textColor_default, 0.85);
@@ -56,14 +58,9 @@ body {
     color: $bgColor_default;
   }
 
-  @include mq(
-    "only screen and (-webkit-min-device-pixel-ratio: 1.5),
-    only screen and (min--moz-device-pixel-ratio: 1.5),
-    only screen and (-o-min-device-pixel-ratio: 1.5/1),
-    only screen and (min-resolution: 144dpi),
-    only screen and (min-resolution: 1.5dppx)"
-  ) {
+  @include mq($mq_retina) {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
