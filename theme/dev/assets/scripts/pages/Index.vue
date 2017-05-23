@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost">
+      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
         <router-link :to="post.slug">
           <index-thumb-component :post="post"></index-thumb-component>
         </router-link>
@@ -41,12 +41,14 @@ export default {
     }
   },
 
+  created() {
+    // currentPostDataを空にする(bgをリセット)
+    this.clearCurrentPost();
+  },
+
   mounted() {
     // ページタイトルを変更
     this.$store.dispatch('changeTitle', '');
-
-    // currentPostDataを空にする(bgをリセット)
-    this.clearCurrentPost();
 
     // 投稿一覧を取得
     this.$store.dispatch('getAllPosts', {per_page:20, offset:0});
@@ -62,6 +64,12 @@ export default {
 .page {
   margin: 0 $margin_page $margin_page;
   padding-top: 125px;
+
+  @include mq($mq_spLarge) {
+    margin-right: $margin_page_sp;
+    margin-left: $margin_page_sp;
+    padding-top: 85px;
+  }
 }
 
 .posts {
@@ -73,6 +81,12 @@ export default {
   margin-top: -60px;
   margin-right: -$margin_post;
   margin-left: -$margin_post;
+
+  @include mq($mq_spLarge) {
+    margin-top: -30px;
+    margin-right: -$margin_post_sp;
+    margin-left: -$margin_post_sp;
+  }
 }
 
 .post {
@@ -85,6 +99,14 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
+    // background-color: #fff;
+  }
+
+  @include mq($mq_spLarge) {
+    width: (100% / 2);
+    height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 2 - #{$margin_post_sp} * 2);
+    margin-top: 30px;
+    padding: 0 $margin_post_sp;
   }
 }
 </style>

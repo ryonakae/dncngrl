@@ -4,12 +4,10 @@
       <router-link :to="'/'">Dancing Girl.</router-link>
     </h1>
 
-    <navi :class="[$style.navi, $style.hidden]" ref="navi">
-      <ul>
-        <router-link :to="'/about'" tag="li" :class="$style.naviItem">ABOUT</router-link>
-        <li :class="$style.naviItem">TAG</li>
-      </ul>
-    </navi>
+    <ul :class="[$style.navi, $style.hidden]" ref="navi">
+      <router-link :to="'/about'" tag="li" :class="$style.naviItem">ABOUT</router-link>
+      <li :class="$style.naviItem">TAG</li>
+    </ul>
   </header>
 </template>
 
@@ -31,13 +29,19 @@ export default {
   @include clearfix;
   position: fixed;
   z-index: 3;
-  top: 40px;
+  top: $margin_page;
   left: 0;
   width: 100%;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: $margin_page;
+  padding-right: $margin_page;
   mix-blend-mode: exclusion;
   pointer-events: none;
+
+  @include mq($mq_spLarge) {
+    top: $margin_page_sp;
+    padding-left: $margin_page_sp;
+    padding-right: $margin_page_sp;
+  }
 }
 
 .logo {

@@ -1,6 +1,6 @@
 <template>
-  <article v-if="isCurrentPostExist" ref="article">
-    <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container">
+  <article v-if="isCurrentPostExist">
+    <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
       <ul class="swiper-wrapper">
         <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
       </ul>
@@ -11,10 +11,12 @@
     <div :class="$style.text">
       <h1 :class="$style.title">{{post.title.rendered}}</h1>
       <div :class="$style.content" v-if="hasContent" v-html="post.content.rendered"></div>
-      <div :class="$style.date">{{post.date | moment}}</div>
-      <ul :class="$style.tags" v-if="hasTags">
-        <li :class="$style.tag" v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
-      </ul>
+      <div :class="$style.info">
+        <div :class="$style.date">{{post.date | moment}}</div>
+        <ul :class="$style.tags" v-if="hasTags">
+          <li :class="$style.tag" v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
+        </ul>
+      </div>
     </div>
   </article>
 </template>
@@ -27,7 +29,6 @@ export default {
   data() {
     return {
       tags: [],
-      $article: null,
       swiper: null
     };
   },
@@ -76,28 +77,33 @@ export default {
 
   methods: {
     init() {
-      this.getTagName(this.post.tags);
       this.$store.dispatch('changeTitle', this.post.title.rendered);
+      this.getTagName(this.post.tags);
 
       if (this.hasMultipleImage) {
         this.initSwiper();
         resizeManager.add(this.swiper.update.bind(this));
       }
+
+      // キーボードイベント監視開始
+      this.initKeyUp();
     },
 
     initSwiper() {
       console.log('swiper initialized');
-      this.swiper = null;
-      this.swiper = new Swiper('.swiper-container', {
+      this.swiper = new Swiper(this.$refs.container, {
         direction: 'vertical',
         speed: 0,
         spaceBetween: 40,
         simulateTouch: false,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: true,
-        touchRatio: 1,
-        threshold: 0,
-        followFinger: false
+        // touchRatio: 1,
+        // threshold: 0,
+        followFinger: false,
+        onTap: (swiper, event)=>{
+          console.log((swiper, event));
+        }
       });
     },
 
@@ -127,8 +133,6 @@ export default {
   },
 
   mounted() {
-    this.$article = $(this.$refs.article);
-
     // currentPostDataがある(indexから遷移した時)
     // 通信せずにcurrentPostDataをそのまま使う
     if (this.post.hasOwnProperty('id')) {
@@ -142,9 +146,6 @@ export default {
         this.init();
       });
     }
-
-    // キーボードイベント監視開始
-    this.initKeyUp();
   }
 };
 </script>
@@ -191,6 +192,14 @@ export default {
   width: 50%;
   mix-blend-mode: exclusion;
   pointer-events: none;
+
+  @include mq($mq_spLarge) {
+    width: 100%;
+    bottom: $margin_page_sp - 4px;
+    left: 0;
+    padding-left: $margin_page_sp;
+    padding-right: $margin_page_sp;
+  }
 }
 
 .title {
@@ -198,22 +207,34 @@ export default {
 }
 
 .content {
-  margin-top: 30px;
+  margin-top: 20px;
+
+  @include mq($mq_spLarge) {
+    margin-top: 13px;
+  }
+}
+
+.info {
+  pointer-events: auto;
+  font-size: $fontSize_small;
+  margin-top: 20px;
+
+  @include mq($mq_spLarge) {
+    margin-top: 13px;
+  }
 }
 
 .date {
-  font-size: $fontSize_small;
-  margin-top: 30px;
+  display: inline;
 }
 
 .tags {
-  margin-top: -2px;
-  pointer-events: auto;
+  display: inline;
+  margin-left: 8px;
 }
 
 .tag {
   display: inline;
-  font-size: $fontSize_small;
 
   &:before {
     content: ', ';
