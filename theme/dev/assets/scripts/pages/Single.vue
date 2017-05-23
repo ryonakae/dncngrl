@@ -1,6 +1,6 @@
 <template>
   <div v-if="isCurrentPostExist">
-    <div v-if="hasMultipleImage" class="swiper-container" :class="$style.swiperContainer">
+    <div v-if="hasMultipleImage" class="swiper-container">
       <ul class="swiper-wrapper">
         <li :class="$style.image" class="swiper-slide" v-for="image in currentPost.acf.images" :style="{backgroundImage:'url('+image.image+')'}"></li>
       </ul>
@@ -103,7 +103,7 @@ export default {
 @import "~styles/config";
 @import "~styles/mixin";
 
-.swiperContainer {
+:global(.swiper-container) {
   width: 100vw;
   height: 100vh;
 }

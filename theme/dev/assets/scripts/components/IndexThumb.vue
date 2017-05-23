@@ -1,12 +1,12 @@
 <template>
   <div :class="[$style.images, $style.hidden]" class="glitch" @mouseover="initGlitch" @mouseleave="resetGlitch" ref="glitch">
-    <div class="glitch-item blue">
+    <div class="glitch-item red">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
     <div class="glitch-item green">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
-    <div class="glitch-item red">
+    <div class="glitch-item blue">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
   </div>
@@ -54,22 +54,22 @@ export default {
       if (aspect >= 1) {
         this.$glitch.find('.glitch-item').css({
           top: '50%',
-          marginTop: this.$glitch.width() / aspect / -2
+          marginTop: Math.round(this.$glitch.width() / aspect / -2)
         });
         this.$glitch.find('.glitch-image').css({
-          width: this.$glitch.width(),
-          height: this.$glitch.width() / aspect
+          width: Math.round(this.$glitch.width()),
+          height: Math.round(this.$glitch.width() / aspect)
         });
       }
       // 画像が縦長の時
       else {
         this.$glitch.find('.glitch-item').css({
           left: '50%',
-          marginLeft: this.$glitch.height() * aspect / -2
+          marginLeft: Math.round(this.$glitch.height() * aspect / -2)
         });
         this.$glitch.find('.glitch-image').css({
-          width: this.$glitch.height() * aspect,
-          height: this.$glitch.height()
+          width: Math.round(this.$glitch.height() * aspect),
+          height: Math.round(this.$glitch.height())
         });
       }
     }
@@ -107,5 +107,6 @@ export default {
   width: 100%;
   height: auto;
   position: relative;
+  pointer-events: none;
 }
 </style>
