@@ -60,6 +60,20 @@ export default {
         mousewheelControl: true,
         mousewheelReleaseOnEdges: true
       });
+    },
+
+    initKeyUp() {
+      $(document).on('keyup.single', (e)=>{
+        if (e.keyCode === 27) {
+          console.log('esc');
+          this.$router.push('/');
+          this.resetKeyup();
+        }
+      });
+    },
+
+    resetKeyup() {
+      $(document).off('.single');
     }
   },
 
@@ -77,6 +91,9 @@ export default {
         this.init();
       });
     }
+
+    // キーボードイベント監視開始
+    this.initKeyUp();
   }
 };
 </script>

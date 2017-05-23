@@ -73,10 +73,7 @@ body {
   text-decoration: underline;
 
   body.is-pc & {
-    // transition: opacity $duration_quick $easing;
-
     &:hover {
-      // opacity: 0.7;
       text-decoration: none;
     }
   }
@@ -104,10 +101,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 @keyframes glitch_shift_1 {
   0%   { transform: translate(4px, 2px); }
-  25%  { transform: translate(-5px, -2px); }
-  50%  { transform: translate(2px, 1px); }
-  75%  { transform: translate(-2px, -1px); }
-  100% { transform: translate(-4px, 1px); }
+  20%  { transform: translate(-5px, -2px); }
+  40%  { transform: translate(2px, 1px); }
+  60%  { transform: translate(-2px, -1px); }
+  80%  { transform: translate(-4px, 1px); }
 }
 @keyframes glitch_shift_2 {
   0%   { transform: translate(2px, -1px); }
@@ -118,9 +115,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 @keyframes glitch_shift_3 {
   0%   { transform: translate(-2px, 1px); }
-  25%  { transform: translate(7px, -1px); }
-  50%  { transform: translate(-1px, -2px); }
-  75%  { transform: translate(3px, 2px); }
+  33%  { transform: translate(7px, -1px); }
+  66%  { transform: translate(-1px, -2px); }
+  88%  { transform: translate(3px, 2px); }
   100% { transform: translate(-2px, -1px); }
 }
 @keyframes glitch_image_1 {
@@ -145,49 +142,55 @@ h1, h2, h3, h4, h5, h6 {
   100% { mix-blend-mode: hue; }
 }
 
+
 .glitch {
   animation-duration: .12s;
-  animation-timing-function: steps(6);
+  animation-timing-function: linear;
+  position: relative;
 
-  .item {
-    animation-duration: .12s;
-    animation-timing-function: steps(5);
-  }
-  .image {
-    animation-duration: .12s;
-    animation-timing-function: steps(5);
-  }
-
-  &.glitchType-a,
-  &.glitchType-b,
-  &.glitchType-c {
+  &.pattern-1,
+  &.pattern-2,
+  &.pattern-3 {
     animation-name: glitch_flash;
   }
 
-  &.glitchType-a {
-    .item {
+  &-item {
+    animation-duration: .12s;
+    animation-timing-function: linear;
+    mix-blend-mode: difference;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &.blue { background-color: rgb(0,0,255); }
+    &.green { background-color: rgb(0,255,0); }
+    &.red { background-color: rgb(255,0,0); }
+
+    .pattern-1 & {
       &.blue { animation-name: glitch_shift_1; }
       &.green { animation-name: glitch_shift_2; }
       &.red { animation-name: glitch_shift_3; }
     }
-    .image { animation-name: glitch_image_1; }
-  }
-
-  &.glitchType-b {
-    .item {
+    .pattern-2 & {
       &.blue { animation-name: glitch_shift_3; }
-      &.green { animation-name: glitch_shift_1; animation-direction: alternate; }
-      &.red { animation-name: glitch_shift_2; animation-direction: alternate; }
+      &.green { animation-name: glitch_shift_1; }
+      &.red { animation-name: glitch_shift_2; }
     }
-    .image { animation-name: glitch_image_2; }
-  }
-
-  &.glitchType-c {
-    .item {
-      &.blue { animation-name: glitch_shift_2; animation-direction: alternate; }
-      &.green { animation-name: glitch_shift_3; animation-direction: alternate; }
+    .pattern-3 & {
+      &.blue { animation-name: glitch_shift_2; }
+      &.green { animation-name: glitch_shift_3; }
       &.red { animation-name: glitch_shift_1; }
     }
-    .image { animation-name: glitch_image_3; }
+  }
+
+  &-image {
+    animation-duration: .12s;
+    animation-timing-function: linear;
+    mix-blend-mode: multiply;
+    vertical-align: top;
+
+    .pattern-1 & { animation-name: glitch_image_1; }
+    .pattern-2 & { animation-name: glitch_image_2; }
+    .pattern-3 & { animation-name: glitch_image_3; }
   }
 }
