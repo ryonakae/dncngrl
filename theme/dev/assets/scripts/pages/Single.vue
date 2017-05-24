@@ -8,12 +8,12 @@
 
     <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></div>
 
-    <div :class="[$style.text, $style.hidden]" ref="text">
+    <div :class="$style.text">
       <h1 :class="$style.title">{{post.title.rendered}}</h1>
       <div :class="$style.content" v-if="hasContent" v-html="post.content.rendered"></div>
       <div :class="$style.info">
         <div :class="$style.date">{{post.date | moment}}</div>
-        <ul :class="$style.tags" v-if="hasTags">
+        <ul :class="[$style.tags, $style.hidden]" v-if="hasTags" ref="tags">
           <li :class="$style.tag" v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
         </ul>
       </div>
@@ -67,13 +67,11 @@ export default {
 
       // タグがある場合はgetTagName()してからテキストを表示
       if (this.hasTags) {
-        this.getTagName(this.post.tags, ()=>{
-          console.log('getTagName done');
-          this.showText();
-        });
-      }
-      else {
-        this.showText();
+        this.getTagName(this.post.tags)
+          .then(()=>{
+            console.log('getTagName done');
+            this.showTags();
+          });
       }
 
       // キーボードイベント監視開始
@@ -103,22 +101,25 @@ export default {
       });
     },
 
-    getTagName(tags, callback) {
-      tags.forEach((tag, index)=>{
-        this.$store.dispatch('getTagName', tag)
-        .then((result)=>{
-          this.tags.push(result);
+    getTagName(tags) {
+      return new Promise((resolve, reject)=>{
+        tags.forEach((tagId, index)=>{
+          this.$store.dispatch('getTagName', tagId)
+          .then((result)=>{
+            // 管理画面で追加した順番にタグを配列に追加
+            this.tags.splice(index, 0, result);
 
-          // ループの最後
-          if (tags.length === index+1) {
-            callback();
-          }
+            // ループの最後
+            if (tags.length === index+1) {
+              resolve();
+            }
+          });
         });
       });
     },
 
-    showText() {
-      $(this.$refs.text).removeClass(this.$style.hidden);
+    showTags() {
+      $(this.$refs.tags).removeClass(this.$style.hidden);
     }
   },
 
@@ -138,8 +139,11 @@ export default {
     // →getPost()実行してcurrentPostDataにデータを入れる
     else {
       this.$store.dispatch('getPost', this.$route.params.id)
+      .then((result)=>{
+        return this.$store.dispatch('setCurrentPost', result);
+      })
       .then(()=>{
-        this.init();
+        return this.init();
       });
     }
   }
@@ -190,11 +194,6 @@ export default {
   mix-blend-mode: exclusion;
   pointer-events: none;
 
-  &.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
   @include mq($mq_spLarge) {
     width: 100%;
     bottom: $margin_page_sp - 4px;
@@ -234,6 +233,11 @@ export default {
 .tags {
   display: inline;
   margin-left: 8px;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .tag {

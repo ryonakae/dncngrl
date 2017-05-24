@@ -33,19 +33,29 @@ const routes = [
   {path:'/post/:id', component: Single}
 ];
 
+// detect scroll behavior
+const scrollBehavior = (to, from, savedPosition)=>{
+  if (savedPosition) {
+    return savedPosition;
+  }
+  else {
+    return {x: 0, y: 0};
+  }
+};
+
 // router initialize
 const router = new VueRouter({
   app: App,
   mode: 'history',
-  saveScrollPosition: false,
-  routes: routes
+  routes,
+  scrollBehavior
 });
 
 // create app
 const app = new Vue({
-  router: router,
   el: '#app',
-  store: store,
+  router,
+  store,
   render: (h) => h(App)
 });
 

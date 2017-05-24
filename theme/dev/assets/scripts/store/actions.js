@@ -3,16 +3,20 @@ import superagent from 'superagent';
 // 非同期、複数のmutationsを組み合わせた処理
 export default {
   changeTitle(context, title) {
-    // pageTitleを変更
-    context.commit('SET_PAGE_TITLE', title);
+    return new Promise((resolve, reject)=>{
+      // pageTitleを変更
+      context.commit('SET_PAGE_TITLE', title);
 
-    // document.titleも変更
-    if (title === '') {
-      document.title = context.state.siteTitle;
-    }
-    else {
-      document.title = title + ' - ' + context.state.siteTitle;
-    }
+      // document.titleも変更
+      if (title === '') {
+        document.title = context.state.siteTitle;
+      }
+      else {
+        document.title = title + ' - ' + context.state.siteTitle;
+      }
+
+      setTimeout(resolve, 10);
+    });
   },
 
   // 記事一覧を取得
@@ -31,19 +35,27 @@ export default {
         .end((err, res) => {
           if (err) {
             console.log(err);
+            reject(err);
           }
           else {
             console.log(res.body);
-            context.commit('SET_ALL_POST_DATA', res.body);
-            resolve();
+            // res.bodyが空(これ以上記事ない)ときはrejectを返す
+            if (res.body.length === 0) {
+              reject();
+            }
+            else {
+              resolve(res.body);
+            }
           }
         });
     });
   },
 
   // スクロールでさらに記事一覧を取得
-  infiniteScroll(context, options) {
+  initInfiniteScroll(context, options) {
     let lock = false;
+
+    options.scrollManager.add(onScroll);
 
     function onScroll(){
       const documentHeight = $(document).height();
@@ -54,11 +66,19 @@ export default {
 
         lock = true;
 
-        this.getAllPosts({per_page:20, offset:0})
+        context.dispatch('getAllPosts', {per_page:context.state.perPage, offset:context.state.allPostData.length})
+          .then((result)=>{
+            // 現在のallPostDataとresultを結合する
+            const newData = context.state.allPostData.concat(result);
+            console.log(newData);
+            // 結合した配列をallPostDataにセット
+            return context.dispatch('setAllPost', newData);
+          })
           .then(()=>{
-            setTimeout(() => {
-              lock = false;
-            }, 100);
+            lock = false;
+          })
+          .catch((err)=>{
+            lock = true;
           });
       }
     }
@@ -85,8 +105,7 @@ export default {
           }
           else {
             console.log(res.body);
-            context.commit('SET_CURRENT_POST_DATA', res.body);
-            resolve();
+            resolve(res.body);
           }
         });
     });
@@ -116,12 +135,25 @@ export default {
     });
   },
 
+  setAllPost(context, data) {
+    return new Promise((resolve, reject)=>{
+      context.commit('SET_ALL_POST_DATA', data);
+      setTimeout(resolve, 10);
+    });
+  },
+
   // currentPostDataにpostオブジェクトをセット
-  setCurrentPost(context, post) {
-    context.commit('SET_CURRENT_POST_DATA', post);
+  setCurrentPost(context, data) {
+    return new Promise((resolve, reject)=>{
+      context.commit('SET_CURRENT_POST_DATA', data);
+      setTimeout(resolve, 10);
+    });
   },
 
   clearCurrentPost(context) {
-    context.commit('SET_CURRENT_POST_DATA', {});
+    return new Promise((resolve, reject)=>{
+      context.commit('SET_CURRENT_POST_DATA', {});
+      setTimeout(resolve, 10);
+    });
   }
 };

@@ -10,7 +10,8 @@ const state = {
   siteTitle: document.title,
   siteUrl: location.protocol + '//' + location.host,
   allPostData: [],
-  currentPostData: {}
+  currentPostData: {},
+  perPage: 10
 };
 
 const store = new Vuex.Store({

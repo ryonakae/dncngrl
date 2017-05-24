@@ -6,7 +6,6 @@
 
     <ul :class="[$style.navi, $style.hidden]" ref="navi">
       <router-link :to="'/about'" tag="li" :class="$style.naviItem">ABOUT</router-link>
-      <li :class="$style.naviItem">TAG</li>
     </ul>
   </header>
 </template>

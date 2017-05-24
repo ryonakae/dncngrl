@@ -15,6 +15,7 @@
 <script>
 import IndexBgComponent from '../components/IndexBg.vue';
 import IndexThumbComponent from '../components/IndexThumb.vue';
+import {scrollManager} from '../app';
 
 export default {
   components: {
@@ -33,7 +34,11 @@ export default {
 
     hasPosts() {
       return this.posts.length > 0 ? true : false;
-    }
+    },
+
+    perPage() {
+      return this.$store.state.perPage;
+    },
   },
 
   methods: {
@@ -63,7 +68,14 @@ export default {
     // allPostDataがない時だけgetAllPostsする
     console.log(this.posts.length, this.hasPosts);
     if (!this.hasPosts) {
-      this.$store.dispatch('getAllPosts', {per_page:3, offset:0});
+      this.$store.dispatch('getAllPosts', {per_page:this.perPage, offset:0})
+        .then((result)=>{
+          this.$store.dispatch('setAllPost', result);
+        })
+        .then(()=>{
+          // infiniteScrollを有効化
+          this.$store.dispatch('initInfiniteScroll', {scrollManager: scrollManager});
+        });
     }
     else {
       console.log('allPostData already exsist');
@@ -125,7 +137,7 @@ export default {
     padding: 0 $margin_post_sp;
   }
 
-  @include mq($mq_sp) {
+  @include mq($mq_spSmall) {
     width: (100% / 1);
     height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 1 - #{$margin_post_sp} * 2);
   }
