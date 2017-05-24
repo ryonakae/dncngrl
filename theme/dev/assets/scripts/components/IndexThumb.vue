@@ -106,6 +106,5 @@ export default {
   width: 100%;
   height: auto;
   position: relative;
-  pointer-events: none;
 }
 </style>

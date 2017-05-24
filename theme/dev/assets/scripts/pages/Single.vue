@@ -13,7 +13,7 @@
       <div :class="$style.content" v-if="hasContent" v-html="post.content.rendered"></div>
       <div :class="$style.info">
         <div :class="$style.date">{{post.date | moment}}</div>
-        <ul :class="$style.tags" v-if="hasTags">
+        <ul :class="[$style.tags, $style.hidden]" v-if="hasTags" ref="tags">
           <li :class="$style.tag" v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
         </ul>
       </div>
@@ -58,7 +58,10 @@ export default {
   methods: {
     init() {
       this.$store.dispatch('changeTitle', this.post.title.rendered);
-      this.getTagName(this.post.tags);
+      this.getTagName(this.post.tags, ()=>{
+        console.log('getTagName done');
+        $(this.$refs.tags).removeClass(this.$style.hidden);
+      });
 
       if (this.hasMultipleImage) {
         this.initSwiper();
@@ -92,11 +95,16 @@ export default {
       });
     },
 
-    getTagName(tags) {
-      tags.forEach((tag)=>{
+    getTagName(tags, callback) {
+      tags.forEach((tag, index)=>{
         this.$store.dispatch('getTagName', tag)
         .then((result)=>{
           this.tags.push(result);
+
+          // ループの最後
+          if (tags.length === index+1) {
+            callback();
+          }
         });
       });
     }
@@ -198,6 +206,7 @@ export default {
 
   @include mq($mq_spLarge) {
     margin-top: 13px;
+    font-size: $fontSize_small_sp;
   }
 }
 
@@ -208,6 +217,11 @@ export default {
 .tags {
   display: inline;
   margin-left: 8px;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .tag {

@@ -2,7 +2,7 @@
   <div :class="$style.page">
     <ul :class="$style.posts">
       <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
-        <router-link :to="'/post/'+post.id">
+        <router-link :to="'/post/'+post.id" tag="div" :class="$style.inner">
           <index-thumb-component :post="post"></index-thumb-component>
         </router-link>
       </li>
@@ -99,7 +99,7 @@ export default {
   margin-top: 60px;
   padding: 0 $margin_post;
 
-  a {
+  .inner {
     display: block;
     width: 100%;
     height: 100%;
