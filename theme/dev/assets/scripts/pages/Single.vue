@@ -8,12 +8,12 @@
 
     <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></div>
 
-    <div :class="$style.text">
+    <div :class="[$style.text, $style.hidden]" ref="text">
       <h1 :class="$style.title">{{post.title.rendered}}</h1>
       <div :class="$style.content" v-if="hasContent" v-html="post.content.rendered"></div>
       <div :class="$style.info">
         <div :class="$style.date">{{post.date | moment}}</div>
-        <ul :class="[$style.tags, $style.hidden]" v-if="hasTags" ref="tags">
+        <ul :class="$style.tags" v-if="hasTags">
           <li :class="$style.tag" v-for="tag in tags" :key="tag.id">{{tag.name}}</li>
         </ul>
       </div>
@@ -58,14 +58,22 @@ export default {
   methods: {
     init() {
       this.$store.dispatch('changeTitle', this.post.title.rendered);
-      this.getTagName(this.post.tags, ()=>{
-        console.log('getTagName done');
-        $(this.$refs.tags).removeClass(this.$style.hidden);
-      });
 
+      // 画像が複数枚ある時はSwiperを初期化する
       if (this.hasMultipleImage) {
         this.initSwiper();
         resizeManager.add(this.swiper.update.bind(this));
+      }
+
+      // タグがある場合はgetTagName()してからテキストを表示
+      if (this.hasTags) {
+        this.getTagName(this.post.tags, ()=>{
+          console.log('getTagName done');
+          this.showText();
+        });
+      }
+      else {
+        this.showText();
       }
 
       // キーボードイベント監視開始
@@ -107,6 +115,10 @@ export default {
           }
         });
       });
+    },
+
+    showText() {
+      $(this.$refs.text).removeClass(this.$style.hidden);
     }
   },
 
@@ -178,6 +190,11 @@ export default {
   mix-blend-mode: exclusion;
   pointer-events: none;
 
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   @include mq($mq_spLarge) {
     width: 100%;
     bottom: $margin_page_sp - 4px;
@@ -217,11 +234,6 @@ export default {
 .tags {
   display: inline;
   margin-left: 8px;
-
-  &.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 .tag {
