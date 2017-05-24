@@ -131,7 +131,7 @@ export default {
   mounted() {
     // currentPostDataがある(indexから遷移した時)
     // 通信せずにcurrentPostDataをそのまま使う
-    if (this.post.hasOwnProperty('id')) {
+    if (this.hasPost) {
       this.init();
     }
     // currentPostDataがない場合(url直接叩いたとき)

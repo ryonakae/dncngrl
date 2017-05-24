@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
+      <li :class="$style.post" v-if="hasPosts" v-for="post in posts" :key="post.id" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
         <router-link :to="'/post/'+post.id" tag="div" :class="$style.inner">
           <index-thumb-component :post="post"></index-thumb-component>
         </router-link>
@@ -26,8 +26,13 @@ export default {
     siteUrl() {
       return this.$store.state.siteUrl;
     },
-    allPost() {
+
+    posts() {
       return this.$store.state.allPostData;
+    },
+
+    hasPosts() {
+      return this.posts.length > 0 ? true : false;
     }
   },
 
@@ -54,8 +59,15 @@ export default {
     // ページタイトルを変更
     this.$store.dispatch('changeTitle', '');
 
-    // 投稿一覧を取得
-    this.$store.dispatch('getAllPosts', {per_page:20, offset:0});
+    // allPostDataがある(一度indexを表示した時)ときは、通信せずにallPostDataをそのまま使う
+    // allPostDataがない時だけgetAllPostsする
+    console.log(this.posts.length, this.hasPosts);
+    if (!this.hasPosts) {
+      this.$store.dispatch('getAllPosts', {per_page:3, offset:0});
+    }
+    else {
+      console.log('allPostData already exsist');
+    }
   }
 };
 </script>
@@ -111,6 +123,11 @@ export default {
     height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 2 - #{$margin_post_sp} * 2);
     margin-top: 30px;
     padding: 0 $margin_post_sp;
+  }
+
+  @include mq($mq_sp) {
+    width: (100% / 1);
+    height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 1 - #{$margin_post_sp} * 2);
   }
 }
 </style>

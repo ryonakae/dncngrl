@@ -41,6 +41,29 @@ export default {
     });
   },
 
+  // スクロールでさらに記事一覧を取得
+  infiniteScroll(context, options) {
+    let lock = false;
+
+    function onScroll(){
+      const documentHeight = $(document).height();
+
+      // スクロールが7割位になったら次のポストロード
+      if (options.scrollManager.scrollBottom > documentHeight * 0.7) {
+        if (lock) return;
+
+        lock = true;
+
+        this.getAllPosts({per_page:20, offset:0})
+          .then(()=>{
+            setTimeout(() => {
+              lock = false;
+            }, 100);
+          });
+      }
+    }
+  },
+
   // 単一の投稿を取得
   getPost(context, id) {
     return new Promise((resolve, reject)=>{
