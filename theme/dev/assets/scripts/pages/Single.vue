@@ -1,12 +1,12 @@
 <template>
-  <article v-if="isCurrentPostExist">
+  <article>
     <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
       <ul class="swiper-wrapper">
         <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
       </ul>
     </div>
 
-    <div v-else :class="[$style.singleImage, $style.image]" v-for="image in post.acf.images" :style="{backgroundImage:'url('+image.image+')'}"></div>
+    <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></div>
 
     <div :class="$style.text">
       <h1 :class="$style.title">{{post.title.rendered}}</h1>
@@ -36,15 +36,6 @@ export default {
   computed: {
     post() {
       return this.$store.state.currentPostData;
-    },
-
-    isCurrentPostExist() {
-      if (this.post.hasOwnProperty('id')) {
-        return true;
-      }
-      else {
-        return false;
-      }
     },
 
     hasMultipleImage() {
@@ -97,13 +88,9 @@ export default {
         spaceBetween: 40,
         simulateTouch: false,
         mousewheelControl: true,
-        mousewheelReleaseOnEdges: true,
-        // touchRatio: 1,
-        // threshold: 0,
-        followFinger: false,
-        onTap: (swiper, event)=>{
-          console.log((swiper, event));
-        }
+        touchRatio: 1,
+        threshold: 1,
+        followFinger: false
       });
     },
 
@@ -118,7 +105,7 @@ export default {
 
     getTagName(tags) {
       tags.forEach((tag)=>{
-        this.$store.dispatch('getTagNameById', tag)
+        this.$store.dispatch('getTagName', tag)
         .then((result)=>{
           this.tags.push(result);
         });
@@ -141,7 +128,7 @@ export default {
     // currentPostDataがない場合(url直接叩いたとき)
     // →getPost()実行してcurrentPostDataにデータを入れる
     else {
-      this.$store.dispatch('getPost', this.$route.params.slug)
+      this.$store.dispatch('getPost', this.$route.params.id)
       .then(()=>{
         this.init();
       });
@@ -154,6 +141,7 @@ export default {
 @import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
+
 
 %fixedImage {
   position: fixed;

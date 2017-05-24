@@ -30,7 +30,7 @@ import store from './store';
 const routes = [
   {path:'/', component: Index},
   {path:'/about', component: About},
-  {path:'/:slug', component: Single}
+  {path:'/post/:id', component: Single}
 ];
 
 // router initialize

@@ -42,13 +42,11 @@ export default {
   },
 
   // 単一の投稿を取得
-  // slugは絶対に重複しないという前提
-  getPost(context, slug) {
+  getPost(context, id) {
     return new Promise((resolve, reject)=>{
-      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts';
+      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/posts/' + id;
       const queryOptions = {
-        _embed: null,
-        slug: slug
+        _embed: null
       };
 
       superagent
@@ -63,8 +61,8 @@ export default {
             console.log(err);
           }
           else {
-            console.log(res.body[0]);
-            context.commit('SET_CURRENT_POST_DATA', res.body[0]);
+            console.log(res.body);
+            context.commit('SET_CURRENT_POST_DATA', res.body);
             resolve();
           }
         });
@@ -73,7 +71,7 @@ export default {
 
   // タグidからタグの名前を取得
   // resolveの引数にタグ情報を入れて、thenに渡す
-  getTagNameById(context, id) {
+  getTagName(context, id) {
     return new Promise((resolve, reject)=>{
       const getUrl = context.state.siteUrl + '/wp-json/wp/v2/tags/' + id;
 

@@ -2,7 +2,7 @@
   <div :class="$style.page">
     <ul :class="$style.posts">
       <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
-        <router-link :to="post.slug">
+        <router-link :to="'/post/'+post.id">
           <index-thumb-component :post="post"></index-thumb-component>
         </router-link>
       </li>
