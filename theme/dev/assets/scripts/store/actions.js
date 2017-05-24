@@ -96,5 +96,9 @@ export default {
   // currentPostDataにpostオブジェクトをセット
   setCurrentPost(context, post) {
     context.commit('SET_CURRENT_POST_DATA', post);
+  },
+
+  clearCurrentPost(context) {
+    context.commit('SET_CURRENT_POST_DATA', {});
   }
 };

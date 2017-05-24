@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article v-if="hasPost">
     <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
       <ul class="swiper-wrapper">
         <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
@@ -38,31 +38,20 @@ export default {
       return this.$store.state.currentPostData;
     },
 
+    hasPost() {
+      return Object.keys(this.post).length > 0 ? true : false;
+    },
+
     hasMultipleImage() {
-      if (this.post.acf.images.length >= 2) {
-        return true;
-      }
-      else {
-        return false;
-      }
+      return this.post.acf.images.length >= 2 ? true : false;
     },
 
     hasContent() {
-      if (this.post.content.rendered !== '') {
-        return true;
-      }
-      else {
-        return false;
-      }
+      return this.post.content.rendered !== '' ? true : false;
     },
 
     hasTags() {
-      if (this.post.tags.length >= 1) {
-        return true;
-      }
-      else {
-        return false;
-      }
+      return this.post.tags.length >= 1 ? true : false;
     }
   },
 

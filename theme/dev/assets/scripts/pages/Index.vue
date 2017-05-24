@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.page">
     <ul :class="$style.posts">
-      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseover="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
+      <li :class="$style.post" v-for="post in allPost" :key="post.id" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
         <router-link :to="'/post/'+post.id">
           <index-thumb-component :post="post"></index-thumb-component>
         </router-link>
@@ -33,11 +33,15 @@ export default {
 
   methods: {
     setCurrentPost(post) {
-      return this.$store.dispatch('setCurrentPost', post);
+      if (this.$route.path === '/') {
+        this.$store.dispatch('setCurrentPost', post);
+      }
     },
 
     clearCurrentPost() {
-      return this.$store.dispatch('setCurrentPost', {});
+      if (this.$route.path === '/') {
+        this.$store.dispatch('clearCurrentPost');
+      }
     }
   },
 
@@ -52,7 +56,7 @@ export default {
 
     // 投稿一覧を取得
     this.$store.dispatch('getAllPosts', {per_page:20, offset:0});
-  },
+  }
 };
 </script>
 

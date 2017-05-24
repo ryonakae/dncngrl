@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseover="initGlitch" @mouseleave="resetGlitch" @touchstart="initGlitch" @touchend="resetGlitch">
+  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseenter="initGlitch" @mouseleave="resetGlitch" @touchstart="initGlitch" @touchend="resetGlitch">
     <div class="glitch-item red">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
