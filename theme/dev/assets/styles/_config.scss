@@ -44,6 +44,7 @@ $letterSpacing_itemTitle: 0.15em;
 
 
 // media query;
+$mq_pcXLarge:     "only screen and (max-width: 1599px)";
 $mq_pcLarge:     "only screen and (max-width: 1399px)";
 $mq_pc:          "only screen and (max-width: 1199px)";
 $mq_tabletLarge: "only screen and (max-width: 979px)";
@@ -70,3 +71,7 @@ $margin_page: 40px;
 $margin_page_sp: 20px;
 $margin_post: 15px;
 $margin_post_sp: 10px;
+
+
+// width
+$max_page_width: 1600px;

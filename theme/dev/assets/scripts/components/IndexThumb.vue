@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseenter="onEnter" @mouseleave="onLeave" @touchstart="onEnter" @touchend="onLeave">
+  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseenter="initGlitch" @mouseleave="resetGlitch" @touchstart="initGlitch" @touchend="resetGlitch">
     <div class="glitch-item red">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
@@ -25,28 +25,6 @@ export default {
   },
 
   methods: {
-    onEnter() {
-      this.setCurrentPost(this.post);
-      this.initGlitch();
-    },
-
-    onLeave() {
-      this.clearCurrentPost();
-      this.resetGlitch();
-    },
-
-    setCurrentPost(post) {
-      if (this.$route.path === '/') {
-        this.$store.dispatch('setCurrentPost', post);
-      }
-    },
-
-    clearCurrentPost() {
-      if (this.$route.path === '/') {
-        this.$store.dispatch('clearCurrentPost');
-      }
-    },
-
     initGlitch() {
       const random = Math.random();
 
