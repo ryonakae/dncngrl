@@ -20,7 +20,7 @@ Vue.use(VueRouter);
 // import pages
 import App from './App.vue';
 import Index from './pages/Index.vue';
-import About from './pages/About.vue';
+import Page from './pages/Page.vue';
 import Single from './pages/Single.vue';
 
 // import vuex store
@@ -29,7 +29,7 @@ import store from './store';
 // detect routes
 const routes = [
   {path:'/', component: Index},
-  {path:'/about', component: About},
+  {path:'/:slug', component: Page},
   {path:'/post/:id', component: Single}
 ];
 
@@ -44,7 +44,8 @@ const scrollBehavior = (to, from, savedPosition)=>{
 };
 
 // router initialize
-const router = new VueRouter({
+// Vuexで使えるようにエクスポート
+export const router = new VueRouter({
   app: App,
   mode: 'history',
   routes,

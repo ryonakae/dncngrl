@@ -96,7 +96,7 @@ export default {
   @include mq($mq_spLarge) {
     margin-right: $margin_page_sp;
     margin-left: $margin_page_sp;
-    padding-top: 85px;
+    padding-top: 95px;
   }
 }
 

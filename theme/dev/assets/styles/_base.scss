@@ -1,6 +1,7 @@
 @import "~bourbon";
 @import "_config";
 @import "_mixin";
+@import "_extend";
 
 // reset / normalize
 @import "lib/reset";
@@ -64,18 +65,6 @@ body {
   }
   @include mq($mq_spLarge) {
     font-size: $fontSize_default_sp;
-  }
-}
-
-
-%link {
-  color: inherit;
-  text-decoration: underline;
-
-  body.is-pc & {
-    &:hover {
-      text-decoration: none;
-    }
   }
 }
 

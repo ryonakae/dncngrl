@@ -1,4 +1,5 @@
 import superagent from 'superagent';
+import {router} from '../app';
 
 // 非同期、複数のmutationsを組み合わせた処理
 export default {
@@ -8,6 +9,7 @@ export default {
       context.commit('SET_PAGE_TITLE', title);
 
       // document.titleも変更
+      // 引数が「''」ならサイトタイトルだけにする
       if (title === '') {
         document.title = context.state.siteTitle;
       }
@@ -111,6 +113,34 @@ export default {
     });
   },
 
+  // 固定ページを取得
+  getPage(context, slug) {
+    return new Promise((resolve, reject)=>{
+      const getUrl = context.state.siteUrl + '/wp-json/wp/v2/pages';
+      const queryOptions = {
+        _embed: null,
+        slug: slug
+      };
+
+      superagent
+        .get(getUrl)
+        .query(queryOptions)
+        .timeout({
+          response: 10000,
+          deadline: 60000
+        })
+        .end((err, res) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(res.body[0]);
+            resolve(res.body[0]);
+          }
+        });
+    });
+  },
+
   // タグidからタグの名前を取得
   // resolveの引数にタグ情報を入れて、thenに渡す
   getTagName(context, id) {
@@ -154,6 +184,15 @@ export default {
     return new Promise((resolve, reject)=>{
       context.commit('SET_CURRENT_POST_DATA', {});
       setTimeout(resolve, 10);
+    });
+  },
+
+  backByEsc(context, from) {
+    $(document).on('keyup.backByEsc', (e)=>{
+      if (e.keyCode === 27) {
+        router.push(from.path);
+        $(document).off('.backByEsc');
+      }
     });
   }
 };

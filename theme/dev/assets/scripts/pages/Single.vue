@@ -73,9 +73,6 @@ export default {
             this.showTags();
           });
       }
-
-      // キーボードイベント監視開始
-      this.initKeyUp();
     },
 
     initSwiper() {
@@ -89,15 +86,6 @@ export default {
         touchRatio: 1,
         threshold: 1,
         followFinger: false
-      });
-    },
-
-    initKeyUp() {
-      $(document).on('keyup.single', (e)=>{
-        if (e.keyCode === 27) {
-          this.$router.push('/');
-          $(document).off('.single');
-        }
       });
     },
 
@@ -129,6 +117,12 @@ export default {
     }
   },
 
+  beforeRouteEnter(to, from, next) {
+    next((vm)=>{
+      vm.$store.dispatch('backByEsc', from);
+    });
+  },
+
   mounted() {
     // currentPostDataがある(indexから遷移した時)
     // 通信せずにcurrentPostDataをそのまま使う
@@ -154,6 +148,7 @@ export default {
 @import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
+@import "~styles/extend";
 
 
 %fixedImage {
@@ -204,11 +199,12 @@ export default {
 }
 
 .title {
-  font-size: $fontSize_h1;
+  @extend %title;
 }
 
 .content {
   margin-top: 20px;
+  @extend %content;
 
   @include mq($mq_spLarge) {
     margin-top: 13px;
