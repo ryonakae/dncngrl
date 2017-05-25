@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import mutations from './mutations';
 import actions from './actions';
+import {util} from '../app';
+console.log(util);
 
 Vue.use(Vuex);
 
@@ -11,7 +13,9 @@ const state = {
   siteUrl: location.protocol + '//' + location.host,
   allPostData: [],
   currentPostData: {},
-  perPage: 10
+  // perPage: util.getDevice() === 'mobile' ? 6 : 10
+  perPage: 10,
+  perPageMobile: 6
 };
 
 const store = new Vuex.Store({

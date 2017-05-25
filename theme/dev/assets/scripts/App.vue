@@ -9,7 +9,7 @@
 import HeaderComponent from './components/Header.vue';
 
 // import, initialize and export manager
-import {utilManager} from './app';
+import {util} from './app';
 import {resizeManager} from './app';
 import {scrollManager} from './app';
 
@@ -18,26 +18,31 @@ export default {
     HeaderComponent
   },
 
-  methods: {
-    init() {
-      // ページタイトルを変更
-      this.$store.dispatch('changeTitle', '');
-
-      // デバイスによってbodyにaddClass
-      if (utilManager.getDevice() === 'pc') {
-        $('body').addClass('is-pc');
-      }
-      else if (utilManager.getDevice() === 'tablet') {
-        $('body').addClass('is-tablet');
-      }
-      else if (utilManager.getDevice() === 'mobile') {
-        $('body').addClass('is-mobile');
-      }
+  computed: {
+    perPageMobile() {
+      return this.$store.state.perPageMobile;
     }
   },
 
   created() {
-    this.init();
+    // ページタイトルを変更
+    this.$store.dispatch('changeTitle', '');
+
+    // デバイスによってbodyにaddClass
+    if (util.getDevice() === 'pc') {
+      $('body').addClass('is-pc');
+    }
+    else if (util.getDevice() === 'tablet') {
+      $('body').addClass('is-tablet');
+    }
+    else if (util.getDevice() === 'mobile') {
+      $('body').addClass('is-mobile');
+    }
+
+    // mobileのときだけperPageを少なくする
+    if (util.getDevice() === 'mobile') {
+      this.$store.dispatch('changePerPage', this.perPageMobile);
+    }
   }
 };
 </script>

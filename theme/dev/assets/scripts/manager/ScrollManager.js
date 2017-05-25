@@ -1,8 +1,8 @@
-// require jQuery, resizeManager & utilManager
+// require jQuery, resizeManager & util
 export default class ScrollManager {
   constructor(options){
     this.resizeManager = options.resizeManager;
-    this.utilManager = options.utilManager;
+    this.util = options.util;
     this.nameSpace = options.nameSpace;
 
     this.scrollAmount = 0;
@@ -62,7 +62,7 @@ export default class ScrollManager {
   }
 
   getAmount(){
-    if (this.utilManager.getDevice() === 'pc'){
+    if (this.util.getDevice() === 'pc'){
       this.$window.on('wheel.'+this.nameSpace, (e)=>{
         this.scrollAmount = e.originalEvent.deltaY;
       });

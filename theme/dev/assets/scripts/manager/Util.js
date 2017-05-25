@@ -4,7 +4,7 @@ import UAParser from 'ua-parser-js';
 const parser = new UAParser();
 const ua = parser.getResult();
 
-export default class UtilManager {
+export default class Util {
   getDevice() {
     if (ua.device.type === 'mobile') {
       return 'mobile';

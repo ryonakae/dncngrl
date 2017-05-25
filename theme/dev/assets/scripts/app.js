@@ -1,14 +1,14 @@
 'use strict';
 
 // import, initialize and export manager
-import UtilManager from './manager/UtilManager';
+import Util from './manager/Util';
 import ResizeManager from './manager/ResizeManager';
 import ScrollManager from './manager/ScrollManager';
-export const utilManager = new UtilManager();
+export const util = new Util();
 export const resizeManager = new ResizeManager();
 export const scrollManager = new ScrollManager({
   resizeManager: resizeManager,
-  utilManager: utilManager,
+  util: util,
   nameSpace: 'scrollManager'
 });
 

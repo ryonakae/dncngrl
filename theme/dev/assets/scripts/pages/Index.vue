@@ -84,8 +84,16 @@ export default {
 @import "~styles/mixin";
 
 .page {
-  margin: 0 $margin_page $margin_page;
-  padding-top: 125px;
+  margin: 0 auto $margin_page;
+  max-width: 1600px;
+  padding: 125px $margin_page 0;
+
+  @include mq("only screen and (max-width: 1599px)") {
+    margin-right: $margin_page;
+    margin-left: $margin_page;
+    padding-right: 0;
+    padding-left: 0;
+  }
 
   @include mq($mq_spLarge) {
     margin-right: $margin_page_sp;
@@ -112,8 +120,8 @@ export default {
 }
 
 .post {
-  width: (100% / 4);
-  height: calc((100vw - (#{$margin_page} - #{$margin_post}) * 2) / 4 - #{$margin_post} * 2);
+  width: (100% / 5);
+  height: calc((100vw - (#{$margin_page} - #{$margin_post}) * 2) / 5 - #{$margin_post} * 2);
   margin-top: 60px;
   padding: 0 $margin_post;
 
@@ -122,6 +130,16 @@ export default {
     width: 100%;
     height: 100%;
     // background-color: #fff;
+  }
+
+  @include mq($mq_pcLarge) {
+    width: (100% / 4);
+    height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 4 - #{$margin_post_sp} * 2);
+  }
+
+  @include mq($mq_tabletLarge) {
+    width: (100% / 3);
+    height: calc((100vw - (#{$margin_page_sp} - #{$margin_post_sp}) * 2) / 3 - #{$margin_post_sp} * 2);
   }
 
   @include mq($mq_spLarge) {

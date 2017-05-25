@@ -10,5 +10,9 @@ export default {
 
   SET_CURRENT_POST_DATA(state, data) {
     state.currentPostData = data;
+  },
+
+  SET_PER_PAGE(state, count) {
+    state.perPage = count;
   }
 };

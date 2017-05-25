@@ -21,6 +21,13 @@ export default {
     });
   },
 
+  changePerPage(context, count) {
+    return new Promise((resolve, reject)=>{
+      context.commit('SET_PER_PAGE', count);
+      setTimeout(resolve, 10);
+    });
+  },
+
   // 記事一覧を取得
   getAllPosts(context, options) {
     return new Promise((resolve, reject)=>{
