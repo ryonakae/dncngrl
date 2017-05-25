@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseenter="initGlitch" @mouseleave="resetGlitch" @touchstart="initGlitch" @touchend="resetGlitch">
+  <div :class="[$style.images, $style.hidden]" class="glitch" ref="glitch" @mouseenter="onEnter" @mouseleave="onLeave" @touchstart="onEnter" @touchend="onLeave">
     <div class="glitch-item red">
       <img :src="post.acf.images[0].image" :class="$style.image" class="glitch-image">
     </div>
@@ -25,8 +25,30 @@ export default {
   },
 
   methods: {
+    onEnter() {
+      this.setCurrentPost(this.post);
+      this.initGlitch();
+    },
+
+    onLeave() {
+      this.clearCurrentPost();
+      this.resetGlitch();
+    },
+
+    setCurrentPost(post) {
+      if (this.$route.path === '/') {
+        this.$store.dispatch('setCurrentPost', post);
+      }
+    },
+
+    clearCurrentPost() {
+      if (this.$route.path === '/') {
+        this.$store.dispatch('clearCurrentPost');
+      }
+    },
+
     initGlitch() {
-      const random = Math.random(0, 1);
+      const random = Math.random();
 
       if (random < 0.33) {
         this.$glitch.addClass('pattern-1');
@@ -81,7 +103,13 @@ export default {
     this.$glitch.imagesLoaded(()=>{
       this.resizeImage();
       resizeManager.add(this.resizeImage.bind(this));
-      this.$glitch.removeClass(this.$style.hidden);
+
+      const random = Math.random() * Math.random() * (300 - 0) + 0;
+      setTimeout(()=>{
+        this.$glitch.removeClass(this.$style.hidden);
+        this.initGlitch();
+        setTimeout(this.resetGlitch.bind(this), 300);
+      }, random);
     });
   }
 };

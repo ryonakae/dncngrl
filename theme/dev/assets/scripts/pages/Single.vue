@@ -9,7 +9,7 @@
     <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></div>
 
     <div :class="$style.text">
-      <h1 :class="$style.title">{{post.title.rendered}}</h1>
+      <h1 :class="$style.title" v-html="post.title.rendered"></h1>
       <div :class="$style.content" v-if="hasContent" v-html="post.content.rendered"></div>
       <div :class="$style.info">
         <div :class="$style.date">{{post.date | moment}}</div>
@@ -212,7 +212,6 @@ export default {
 }
 
 .info {
-  pointer-events: auto;
   font-size: $fontSize_small;
   margin-top: 20px;
 
