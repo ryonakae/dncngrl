@@ -40,5 +40,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50% 50%;
+  pointer-events: none;
+  opacity: 0.3;
 }
 </style>
