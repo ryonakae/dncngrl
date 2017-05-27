@@ -59,8 +59,8 @@ services:
     image: busybox:1.26.2-musl
     container_name: dncngrl-data
     volumes:
-      - db-data:/var/lib/mysql
-      - wp-data:/var/www/html
+      - dncngrl-data-db:/var/lib/mysql
+      - dncngrl-data-wp:/var/www/html
       - ./backup:/backup
     networks:
       - back-dncngrl
@@ -78,10 +78,10 @@ services:
       - back-dncngrl
 
 volumes:
-  db-data:
-    driver: local
-  wp-data:
-    driver: local
+  dncngrl-data-db:
+    external: true
+  dncngrl-data-wp:
+    external: true
 
 networks:
   front:

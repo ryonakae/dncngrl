@@ -7,6 +7,13 @@ $ docker network create --driver bridge back-dncngrl
 ```
 
 
+## ボリューム作成
+```
+docker volume create --name=dncngrl-data-db
+docker volume create --name=dncngrl-data-wp
+```
+
+
 ## .envファイル作成
 ```
 $ touch .env
