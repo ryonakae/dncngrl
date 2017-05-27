@@ -18,7 +18,7 @@ export default {
       // base64エンコードしない場合はテーマ内の指定のディレクトリのパスを入れる
       // images
       {
-        test: /\.(jpg|png)$/,
+        test: /\.(jpg|png|gif)$/,
         loader: 'url-loader?limit=100000&name=' + filePath.theme.images + '[name].[ext]',
       },
       // webfont

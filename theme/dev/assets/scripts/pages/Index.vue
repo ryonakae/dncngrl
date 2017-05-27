@@ -136,6 +136,8 @@ export default {
     width: 100%;
     height: 100%;
     // background-color: #fff;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    cursor: pointer;
   }
 
   @include mq($mq_pcXLarge) {

@@ -1,19 +1,76 @@
 <template>
   <header :class="$style.header">
-    <h1 :class="$style.logo">
-      <router-link :to="'/'">Dancing Girl.</router-link>
-    </h1>
+    <router-link :to="'/'" tag="h1" :class="$style.title">
+      <div :class="[$style.logo, $style.hidden]" ref="logo">
+        <img :class="[$style.default, $style.hidden]" src="~images/logo.png" :alt="siteTitle" ref="default">
+        <img :class="$style.glitch" src="~images/logo_glitch.gif" ref="glitch">
+      </div>
+    </router-link>
 
-    <ul :class="[$style.navi, $style.hidden]" ref="navi">
-      <router-link :to="'/about'" tag="li" :class="$style.naviItem">ABOUT</router-link>
+    <ul :class="$style.navi">
+      <router-link :to="'/about'" tag="li" :class="$style.naviItem">About</router-link>
     </ul>
   </header>
 </template>
 
 <script>
+import {util} from '../app';
+
 export default {
+  data() {
+    return {
+      $logo: null,
+      $default: null,
+      $glitch: null
+    };
+  },
+
+  computed: {
+    siteTitle() {
+      return this.$store.state.siteTitle;
+    },
+  },
+
+  methods: {
+    init() {
+      // タッチデバイスでmouseenterイベントにバインドしてると、ダブルタップしないとリンク押せない
+      // pcのときだけmouseenter/mouseleaveイベントにバインド
+      // タッチデバイスはtouchstart/touchend
+      if (util.getDevice() === 'pc') {
+        this.$logo.on('click', this.onEnter.bind(this));
+        this.$logo.on('mouseenter', this.onEnter.bind(this));
+        this.$logo.on('mouseleave', this.onLeave.bind(this));
+      }
+      else {
+        this.$logo.on('touchstart', this.onEnter.bind(this));
+        this.$logo.on('touchend', this.onLeave.bind(this));
+      }
+    },
+
+    onEnter() {
+      this.$default.addClass(this.$style.hidden);
+      this.$glitch.removeClass(this.$style.hidden);
+
+      setTimeout(this.onLeave.bind(this), 300);
+    },
+
+    onLeave() {
+      this.$default.removeClass(this.$style.hidden);
+      this.$glitch.addClass(this.$style.hidden);
+    }
+  },
+
   mounted() {
-    $(this.$refs.navi).removeClass(this.$style.hidden);
+    this.$logo = $(this.$refs.logo);
+    this.$default = $(this.$refs.default);
+    this.$glitch = $(this.$refs.glitch);
+
+    this.$logo.imagesLoaded(()=>{
+      this.$logo.removeClass(this.$style.hidden);
+      this.onEnter();
+    });
+
+    this.init();
   }
 };
 </script>
@@ -22,7 +79,6 @@ export default {
 @import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
-@import "~styles/sprite";
 
 .header {
   @include clearfix;
@@ -43,31 +99,54 @@ export default {
   }
 }
 
-.logo {
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.title {
+  display: block;
   float: left;
   pointer-events: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  cursor: pointer;
+}
 
-  a {
-    display: block;
-    @include hide-text;
-    @include retina-sprite($logo-group);
+.logo {
+  position: relative;
+  width: 34px;
+  height: 44px;
+
+  .default {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 44px;
+  }
+
+  .glitch {
+    pointer-events: none;
+    position: absolute;
+    top: -2px;
+    left: -20px;
+    width: 74px;
+    height: 48px;
   }
 }
 
 .navi {
   float: right;
   margin-top: 11px;
-
-  &.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 .naviItem {
   pointer-events: auto;
   display: inline;
   margin-left: 30px;
+  text-transform: uppercase;
+  cursor: pointer;
 
   &:first-child {
     margin-left: 0;
