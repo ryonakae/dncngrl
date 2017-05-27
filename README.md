@@ -35,6 +35,8 @@ MYSQL_DATABASE=xxx
 MYSQL_ROOT_PASSWORD=xxx
 ```
 
+`WORDPRESS_DB_PASSWORD`と`MYSQL_ROOT_PASSWORD`は同じにする
+
 
 ## (ローカルのとき)hostsファイル編集
 ```
@@ -47,6 +49,8 @@ $ sudo vim /etc/hosts
 
 
 ## データのバックアップ/リストア
+`docker-compose up -d`した上で、
+
 ```
 # バックアップ
 $ sh script/backup.sh
@@ -61,3 +65,18 @@ $ sh script/restore.sh
 ```
 $ docker-compose run --rm data /bin/sh
 ```
+
+
+## テーマファイルのビルド
+* サーバにnode.js + yarnをインストールする
+  * yarnがrootで実行できるようにしておく
+
+```
+$ cd theme
+$ sudo yarn run build
+```
+
+rootで実行しないと、Dockerで生成した`theme/public`にアクセスできないので、
+ディレクトリのクリーンナップやコンパイルが失敗してしまう
+
+作業ユーザーでもビルドできるようにしたい(できるだけrootで作業したくない)
