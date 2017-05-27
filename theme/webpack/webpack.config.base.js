@@ -19,12 +19,12 @@ export default {
       // images
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'url-loader?limit=100000&name=' + filePath.theme.images + '[name].[ext]',
+        loader: 'url-loader?emitFile=false&limit=300000&name=' + filePath.theme.images + '[name].[ext]',
       },
       // webfont
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)$/,
-        loader: 'url-loader?limit=100000&name=' + filePath.theme.fonts + '[name].[ext]',
+        loader: 'url-loader?emitFile=false&limit=300000&name=' + filePath.theme.fonts + '[name].[ext]',
       },
       // eslint
       {
