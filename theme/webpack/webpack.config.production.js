@@ -9,7 +9,8 @@ module.exports = merge(baseConfig, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
+        warnings: false,
+        drop_console: true
       },
       comments: false
     }),
