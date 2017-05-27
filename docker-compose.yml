@@ -1,0 +1,90 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:1.11.10-alpine
+    container_name: dncngrl-nginx
+    ports:
+      - 8081:8081
+    restart: always
+    tty: false
+    env_file: .env
+    links:
+      - wordpress
+      - mysql:mysql
+    volumes_from:
+      - wordpress
+    volumes:
+      - ./setting/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./setting/nginx/conf:/etc/nginx/conf/:ro
+      - ./setting/nginx/htpasswd:/etc/nginx/htpasswd/:ro
+    networks:
+      - front
+      - back-dncngrl
+
+  wordpress:
+    build: ./docker/wordpress
+    container_name: dncngrl-wordpress
+    ports:
+      - 9001:9000
+    restart: always
+    tty: false
+    environment:
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_TABLE_PREFIX=wp_
+    env_file: .env
+    links:
+      - mysql:mysql
+    volumes_from:
+      - data
+    volumes:
+      - ./setting/php:/usr/local/etc/php:ro
+      - ./theme/public:/var/www/html/wp-content/themes/d:ro
+    networks:
+      - back-dncngrl
+
+  mysql:
+    image: mysql:5.7.17
+    container_name: dncngrl-mysql
+    ports:
+      - 13307:3306
+    restart: always
+    tty: false
+    env_file: .env
+    volumes_from:
+      - data
+    networks:
+      - back-dncngrl
+
+  data:
+    image: busybox:1.26.2-musl
+    container_name: dncngrl-data
+    volumes:
+      - dncngrl-data-db:/var/lib/mysql
+      - dncngrl-data-wp:/var/www/html
+      - ./backup:/backup
+    networks:
+      - back-dncngrl
+
+  wpcli:
+    image: tatemz/wp-cli
+    container_name: dncngrl-wpcli
+    volumes_from:
+      - data
+    links:
+      - mysql:mysql
+    entrypoint: wp
+    command: '--info'
+    networks:
+      - back-dncngrl
+
+volumes:
+  dncngrl-data-db:
+    external: true
+  dncngrl-data-wp:
+    external: true
+
+networks:
+  front:
+    external: true
+  back-dncngrl:
+    external: true
