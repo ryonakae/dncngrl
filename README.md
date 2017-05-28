@@ -71,12 +71,19 @@ $ docker-compose run --rm data /bin/sh
 ### 準備
 * サーバでこのリポジトリをpull
 * backupディレクトリにバックアップファイルを用意
-  * SCP使う
+  * `scp 転送するファイル configに書いた名前:転送先のディレクトリ`
 * docker-compose up -d
 
-### wp-cliでURL置換
+### wp-cliでリストア&URL置換
 ```
+# リストア
+$ sh script/restore.sh
+
+# URL置換
 $ docker-compose run --rm wpcli search-replace --all-tables 'http://before.com' 'http://after.com'
+
+# Dry Run
+$ docker-compose run --rm wpcli search-replace --all-tables --dry-run 'http://before.com' 'http://after.com'
 ```
 
 HTTPSのサイトなら`https://after.com`にする
@@ -87,7 +94,9 @@ HTTPSのサイトなら`https://after.com`にする
 
 ```
 $ cd theme
-$ sudo yarn run build
+$ su
+$ yarn run build
+$ exit
 ```
 
 rootで実行しないと、Dockerで生成した`theme/public`にアクセスできないので、
