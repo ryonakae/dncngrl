@@ -67,28 +67,31 @@ export default {
     options.scrollManager.add(onScroll);
 
     function onScroll(){
-      const documentHeight = $(document).height();
+      // options.pathと現在のpathが同じ時だけ実行
+      if (options.path === location.pathname) {
+        const documentHeight = $(document).height();
 
-      // スクロールが7割位になったら次のポストロード
-      if (options.scrollManager.scrollBottom > documentHeight * 0.7) {
-        if (lock) return;
+        // スクロールが7割位になったら次のポストロード
+        if (options.scrollManager.scrollBottom > documentHeight * 0.7) {
+          if (lock) return;
 
-        lock = true;
+          lock = true;
 
-        context.dispatch('getAllPosts', {per_page:context.state.perPage, offset:context.state.allPostData.length})
-          .then((result)=>{
-            // 現在のallPostDataとresultを結合する
-            const newData = context.state.allPostData.concat(result);
-            console.log(newData);
-            // 結合した配列をallPostDataにセット
-            return context.dispatch('setAllPost', newData);
-          })
-          .then(()=>{
-            lock = false;
-          })
-          .catch((err)=>{
-            lock = true;
-          });
+          context.dispatch('getAllPosts', {per_page:context.state.perPage, offset:context.state.allPostData.length})
+            .then((result)=>{
+              // 現在のallPostDataとresultを結合する
+              const newData = context.state.allPostData.concat(result);
+              console.log('infiniteScroll', newData);
+              // 結合した配列をallPostDataにセット
+              return context.dispatch('setAllPost', newData);
+            })
+            .then(()=>{
+              lock = false;
+            })
+            .catch((err)=>{
+              lock = true;
+            });
+        }
       }
     }
   },

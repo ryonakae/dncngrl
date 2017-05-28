@@ -1,12 +1,14 @@
 <template>
   <article v-if="hasPost">
     <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
-      <ul class="swiper-wrapper">
+      <ul class="swiper-wrapper" @click="backByClick">
         <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
       </ul>
+
+      <div :class="$style.pagination" class="swiper-pagination" ref="pagination"></div>
     </div>
 
-    <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}"></div>
+    <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}" @click="backByClick"></div>
 
     <div :class="$style.text">
       <h1 :class="$style.title" v-html="post.title.rendered"></h1>
@@ -29,7 +31,8 @@ export default {
   data() {
     return {
       tags: [],
-      swiper: null
+      swiper: null,
+      fromPath: ''
     };
   },
 
@@ -85,7 +88,10 @@ export default {
         mousewheelControl: true,
         touchRatio: 1,
         threshold: 1,
-        followFinger: false
+        longSwipesMs: 600,
+        followFinger: false,
+        pagination: this.$refs.pagination,
+        paginationType: 'fraction'
       });
     },
 
@@ -108,6 +114,19 @@ export default {
 
     showTags() {
       $(this.$refs.tags).removeClass(this.$style.hidden);
+    },
+
+    backByClick() {
+      let toPath;
+
+      if (this.fromPath !== '') {
+        toPath = this.fromPath;
+      }
+      else {
+        toPath = '/';
+      }
+
+      this.$router.push(toPath);
     }
   },
 
@@ -119,6 +138,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next((vm)=>{
+      vm.fromPath = from.path;
       vm.$store.dispatch('backByEsc', from);
     });
   },
@@ -173,6 +193,19 @@ export default {
   .image {
     @extend %containBg;
   }
+
+  .pagination {
+    position: fixed;
+    bottom: $margin_page - 8px;
+    right: $margin_page;
+    font-size: $fontSize_small;
+
+    @include mq($mq_spLarge) {
+      bottom: $margin_page_sp - 4px;
+      right: $margin_page_sp;
+      font-size: $fontSize_small_sp;
+    }
+  }
 }
 
 .singleImage {
@@ -216,6 +249,7 @@ export default {
   margin-top: 20px;
 
   @include mq($mq_spLarge) {
+    width: 85%;
     margin-top: 13px;
     font-size: $fontSize_small_sp;
   }
