@@ -74,7 +74,10 @@ export default {
         })
         .then(()=>{
           // infiniteScrollを有効化
-          this.$store.dispatch('initInfiniteScroll', {scrollManager: scrollManager});
+          this.$store.dispatch('initInfiniteScroll', {
+            scrollManager: scrollManager,
+            path: '/'
+          });
         });
     }
     else {

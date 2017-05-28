@@ -41,6 +41,6 @@
   background-size: contain;
   background-position: 50% 50%;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.45;
 }
 </style>

@@ -67,7 +67,21 @@ $ docker-compose run --rm data /bin/sh
 ```
 
 
-## テーマファイルのビルド
+## デプロイ
+### 準備
+* サーバでこのリポジトリをpull
+* backupディレクトリにバックアップファイルを用意
+  * SCP使う
+* docker-compose up -d
+
+### wp-cliでURL置換
+```
+$ docker-compose run --rm wpcli search-replace --all-tables 'http://before.com' 'http://after.com'
+```
+
+HTTPSのサイトなら`https://after.com`にする
+
+### テーマファイルのビルド
 * サーバにnode.js + yarnをインストールする
   * yarnがrootで実行できるようにしておく
 

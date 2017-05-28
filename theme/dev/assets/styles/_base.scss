@@ -20,12 +20,10 @@ html {
 
 // web fonts
 // webpackのaliasで解決するために、`~fonts/...`というパスにする
-@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-Regular", $file-formats: woff);
-@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-Italic", normal, italic, $file-formats: woff);
-@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-Bold", bold, $file-formats: woff);
-@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-BoldIt", bold, italic, $file-formats: woff);
-@include font-face("Noto Sans Japanese", "~fonts/NotoSansJP-Regular", $file-formats: woff);
-@include font-face("Noto Sans Japanese", "~fonts/NotoSansJP-Bold", bold, $file-formats: woff);
+@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-Book", $file-formats: eot woff2 woff);
+@include font-face("Neue Frutiger", "~fonts/NeueFrutiger-Bold", bold, $file-formats: eot woff2 woff);
+@include font-face("Noto Sans Japanese", "~fonts/NotoSansJP-DemiLight", $file-formats: eot woff);
+@include font-face("Noto Sans Japanese", "~fonts/NotoSansJP-Bold", bold, $file-formats: eot woff);
 
 
 html {
@@ -34,6 +32,7 @@ html {
 
 
 body {
+  min-height: 100vh;
   background-color: $bgColor_default;
   background-image: url('~images/bg.jpg');
   background-size: 400px 400px;
