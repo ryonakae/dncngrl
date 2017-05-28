@@ -1,5 +1,5 @@
 <template>
-  <article v-if="hasPost">
+  <article v-if="hasPost" :class="$style.article">
     <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
       <ul class="swiper-wrapper" @click="backByClick">
         <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
@@ -187,6 +187,14 @@ export default {
   background-position: 50% 50%;
 }
 
+.article {
+  cursor: url('images/cursor_close.png') 9 9, auto;
+  cursor: -webkit-image-set(
+    url('images/cursor_close.png') 1x,
+    url('images/cursor_close-2x.png') 2x
+  ) 9 9, auto;
+}
+
 .multiImage {
   @extend %fixedImage;
 
@@ -198,7 +206,10 @@ export default {
     position: fixed;
     bottom: $margin_page - 8px;
     right: $margin_page;
+    z-index: 2;
     font-size: $fontSize_small;
+    mix-blend-mode: exclusion;
+    pointer-events: none;
 
     @include mq($mq_spLarge) {
       bottom: $margin_page_sp - 4px;
