@@ -55,4 +55,10 @@ function disable_visual_editor_filter(){
 }
 add_action('load-post.php', 'disable_visual_editor_mypost');
 add_action('load-post-new.php', 'disable_visual_editor_mypost');
+
+// 投稿の自動保存を無効化
+function disable_autosave() {
+  wp_deregister_script('autosave');
+}
+add_action( 'wp_print_scripts', 'disable_autosave' );
 ?>
