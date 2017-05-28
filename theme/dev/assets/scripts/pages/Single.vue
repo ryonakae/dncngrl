@@ -188,10 +188,10 @@ export default {
 }
 
 .article {
-  cursor: url("~images/cursor_close.png") 9 9, auto;
+  cursor: url("images/cursor_close.png") 9 9, auto;
   cursor: -webkit-image-set(
-    url("~images/cursor_close.png") 1x,
-    url("~images/cursor_close-2x.png") 2x
+    url("images/cursor_close.png") 1x,
+    url("images/cursor_close-2x.png") 2x
   ) 9 9, auto;
 }
 

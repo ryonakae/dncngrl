@@ -6,11 +6,11 @@ import runSequence from 'run-sequence';
 gulp.task('default', () => {
   // development
   if (env === 'development') {
-    runSequence('cleanPublic', ['copyFile', 'image:sprite'], ['sass', 'concat:js', 'webpack', 'image:min'], 'bs:init', 'watch');
+    runSequence('cleanPublic', ['copyFile', 'image:sprite'], ['sass', 'concat:js', 'image:min'], 'webpack', 'bs:init', 'watch');
   }
 
   // production
   else if (env === 'production') {
-    runSequence('clearCache', 'cleanPublic', ['copyFile', 'image:sprite'], ['sass', 'concat:js', 'webpack', 'image:min']);
+    runSequence('clearCache', 'cleanPublic', ['copyFile', 'image:sprite'], ['sass', 'concat:js', 'image:min'], 'webpack');
   }
 });
