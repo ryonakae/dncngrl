@@ -9,8 +9,8 @@ $ docker network create --driver bridge back-dncngrl
 
 ## ボリューム作成
 ```
-docker volume create --name=dncngrl-data-db
-docker volume create --name=dncngrl-data-wp
+$ docker volume create --name=dncngrl-data-db
+$ docker volume create --name=dncngrl-data-wp
 ```
 
 
@@ -71,8 +71,9 @@ $ docker-compose run --rm data /bin/sh
 ### 準備
 * サーバでこのリポジトリをpull
 * backupディレクトリにバックアップファイルを用意
-  * `scp 転送するファイル configに書いた名前:転送先のディレクトリ`
-* docker-compose up -d
+  * `scp -r 転送するディレクトリ configに書いた名前:転送先のディレクトリ`
+  * VPSからローカルにコピーする場合は `scp -r configに書いた名前:転送するディレクトリ 転送先のディレクトリ`
+* `docker-compose up -d`
 
 ### wp-cliでリストア&URL置換
 ```
@@ -89,17 +90,18 @@ $ docker-compose run --rm wpcli search-replace --all-tables --dry-run 'http://be
 HTTPSのサイトなら`https://after.com`にする
 
 ### テーマファイルのビルド
-* サーバにnode.js + yarnをインストールする
-  * yarnがrootで実行できるようにしておく
+* サーバにNode.jsをインストールする
+  * sudoで実行できるようにしておく
+  * http://sakanaaas.hateblo.jp/entry/2016/09/18/233251
 
 ```
 $ cd theme
-$ su
-$ yarn run build
-$ exit
+$ npm i
+$ sudo npm run build
 ```
 
-rootで実行しないと、Dockerで生成した`theme/public`にアクセスできないので、
-ディレクトリのクリーンナップやコンパイルが失敗してしまう
+sudoで実行しないと、Dockerで生成した`theme/public`にアクセスできないので、ディレクトリのクリーンナップやコンパイルが失敗してしまう
 
-作業ユーザーでもビルドできるようにしたい(できるだけrootで作業したくない)
+* sudoなしでもビルドできるようにしたい
+  * publicディレクトリのパーミッションを変更するしかなさそう
+  * `docker-compose up`時に自動でパーミッション変更できれば一番いいけど、できるか分からん
