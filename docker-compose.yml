@@ -1,10 +1,10 @@
 version: '2'
 services:
   nginx:
-    image: nginx:1.11.10-alpine
+    image: nginx:1.13.0-alpine
     container_name: dncngrl-nginx
     ports:
-      - 8081:8081
+      - 8081:80
     restart: always
     tty: false
     env_file: .env
@@ -43,7 +43,7 @@ services:
       - back-dncngrl
 
   mysql:
-    image: mysql:5.7.17
+    image: mysql:5.7.18
     container_name: dncngrl-mysql
     ports:
       - 13307:3306
