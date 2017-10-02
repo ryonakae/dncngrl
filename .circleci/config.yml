@@ -58,12 +58,12 @@ jobs:
       - deploy:
           name: Deploy and publich
           command: |
-            - git config --global user.name  "CircleCI"
-            - git config --global user.email "circleci@dncngrl.com"
-            - git add .
-            - git commit -m "Publish by CircleCI"
-            - git checkout -B public
-            - git push -u origin public --force
+            git config --global user.name  "CircleCI"
+            git config --global user.email "circleci@dncngrl.com"
+            git add .
+            git commit -m "Publish by CircleCI"
+            git checkout -B public
+            git push -u origin public --force
 
 workflows:
   version: 2
