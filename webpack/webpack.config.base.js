@@ -14,17 +14,31 @@ export default {
   },
   module: {
     rules: [
-      // 画像とフォントは100KB以下ならbase64エンコード
+      // 画像とフォントは200KB以下ならbase64エンコード
       // base64エンコードしない場合はテーマ内の指定のディレクトリのパスを入れる
       // images
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'url-loader?emitFile=false&limit=300000&name=' + filePath.theme.images + '[name].[ext]',
+        loader: 'url-loader',
+        options: {
+          emitFile: false,
+          limit: 200000,
+          name: '[name].[ext]',
+          outputPath: filePath.images,
+          publicPath: '/' + filePath.theme.images
+        }
       },
       // webfont
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)$/,
-        loader: 'url-loader?emitFile=false&limit=300000&name=' + filePath.theme.fonts + '[name].[ext]',
+        loader: 'url-loader',
+        options: {
+          emitFile: false,
+          limit: 200000,
+          name: '[name].[ext]',
+          outputPath: filePath.fonts,
+          publicPath: '/' + filePath.theme.fonts
+        }
       },
       // eslint
       {

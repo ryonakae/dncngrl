@@ -82,12 +82,9 @@ export default {
       this.resizeImage();
       resizeManager.add(this.resizeImage.bind(this));
 
-      const random = Math.random() * Math.random() * (300 - 0) + 0;
-      setTimeout(()=>{
-        this.$glitch.removeClass(this.$style.hidden);
-        this.initGlitch();
-        setTimeout(this.resetGlitch.bind(this), 300);
-      }, random);
+      this.$glitch.removeClass(this.$style.hidden);
+      this.initGlitch();
+      setTimeout(this.resetGlitch.bind(this), 300);
     });
   }
 };
