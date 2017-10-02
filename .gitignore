@@ -4,11 +4,8 @@ logs
 *.log
 npm-debug.log*
 
-.env
-backup/*
-
 node_modules
-theme/public/*
-theme/dev/assets/styles/_sprite.scss
+public
+_sprite.*
 
 !.gitkeep
