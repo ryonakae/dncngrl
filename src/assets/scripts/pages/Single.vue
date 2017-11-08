@@ -2,13 +2,13 @@
   <article v-if="hasPost" :class="$style.article">
     <div v-if="hasMultipleImage" :class="$style.multiImage" class="swiper-container" ref="container">
       <ul class="swiper-wrapper" @click="backByClick">
-        <li :class="$style.image" class="swiper-slide" v-for="image in post.acf.images" :key="image" :style="{backgroundImage:'url('+image.image+')'}"></li>
+        <li :class="$style.image" class="swiper-slide" v-for="(image, index) in post.acf.images" :key="index" :style="{backgroundImage:'url('+image.image.url+')'}"></li>
       </ul>
 
       <div :class="$style.pagination" class="swiper-pagination" ref="pagination"></div>
     </div>
 
-    <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image+')'}" @click="backByClick"></div>
+    <div v-else :class="[$style.singleImage, $style.image]" :style="{backgroundImage:'url('+post.acf.images[0].image.url+')'}" @click="backByClick"></div>
 
     <div :class="$style.text">
       <h1 :class="$style.title" v-html="post.title.rendered"></h1>
@@ -24,62 +24,62 @@
 </template>
 
 <script>
-import moment from 'moment';
-import {resizeManager} from '../app';
+import moment from 'moment'
+import {resizeManager} from '../app'
 
 export default {
-  data() {
+  data () {
     return {
       tags: [],
       swiper: null,
       fromPath: ''
-    };
+    }
   },
 
   computed: {
-    post() {
-      return this.$store.state.currentPostData;
+    post () {
+      return this.$store.state.currentPostData
     },
 
-    hasPost() {
-      return Object.keys(this.post).length > 0 ? true : false;
+    hasPost () {
+      return Object.keys(this.post).length > 0
     },
 
-    hasMultipleImage() {
-      return this.post.acf.images.length >= 2 ? true : false;
+    hasMultipleImage () {
+      return this.post.acf.images.length >= 2
     },
 
-    hasContent() {
-      return this.post.content.rendered !== '' ? true : false;
+    hasContent () {
+      return this.post.content.rendered !== ''
     },
 
-    hasTags() {
-      return this.post.tags.length >= 1 ? true : false;
+    hasTags () {
+      return this.post.tags.length >= 1
     }
   },
 
   methods: {
-    init() {
-      this.$store.dispatch('changeTitle', this.post.title.rendered);
+    init () {
+      this.$store.dispatch('changeTitle', this.post.title.rendered)
 
       // 画像が複数枚ある時はSwiperを初期化する
       if (this.hasMultipleImage) {
-        this.initSwiper();
-        resizeManager.add(this.swiper.update.bind(this));
+        this.initSwiper()
+        resizeManager.add(this.swiper.update.bind(this))
       }
 
       // タグがある場合はgetTagName()してからテキストを表示
       if (this.hasTags) {
         this.getTagName(this.post.tags)
-          .then(()=>{
-            console.log('getTagName done');
-            this.showTags();
-          });
+          .then(() => {
+            console.log('getTagName done')
+            this.showTags()
+          })
       }
     },
 
-    initSwiper() {
-      console.log('swiper initialized');
+    initSwiper () {
+      console.log('swiper initialized')
       this.swiper = new Swiper(this.$refs.container, {
         direction: 'vertical',
         speed: 0,
@@ -92,76 +92,74 @@ export default {
         followFinger: false,
         pagination: this.$refs.pagination,
         paginationType: 'fraction'
-      });
+      })
     },
 
-    getTagName(tags) {
-      return new Promise((resolve, reject)=>{
-        tags.forEach((tagId, index)=>{
+    getTagName (tags) {
+      return new Promise((resolve, reject) => {
+        tags.forEach((tagId, index) => {
           this.$store.dispatch('getTagName', tagId)
-          .then((result)=>{
-            // 管理画面で追加した順番にタグを配列に追加
-            this.tags.splice(index, 0, result);
+            .then((result) => {
+              // 管理画面で追加した順番にタグを配列に追加
+              this.tags.splice(index, 0, result)
 
-            // ループの最後
-            if (tags.length === index+1) {
-              resolve();
-            }
-          });
-        });
-      });
+              // ループの最後
+              if (tags.length === index + 1) {
+                resolve()
+              }
+            })
+        })
+      })
     },
 
-    showTags() {
-      $(this.$refs.tags).removeClass(this.$style.hidden);
+    showTags () {
+      $(this.$refs.tags).removeClass(this.$style.hidden)
     },
 
-    backByClick() {
-      let toPath;
+    backByClick () {
+      let toPath
 
       if (this.fromPath !== '') {
-        toPath = this.fromPath;
-      }
-      else {
-        toPath = '/';
+        toPath = this.fromPath
+      } else {
+        toPath = '/'
       }
 
-      this.$router.push(toPath);
+      this.$router.push(toPath)
     }
   },
 
   filters: {
-    moment(date) {
-      return moment(date).format('YYYY');
+    moment (date) {
+      return moment(date).format('YYYY')
     }
   },
 
-  beforeRouteEnter(to, from, next) {
-    next((vm)=>{
-      vm.fromPath = from.path;
-      vm.$store.dispatch('backByEsc', from);
-    });
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.fromPath = from.path
+      vm.$store.dispatch('backByEsc', from)
+    })
   },
 
-  mounted() {
+  mounted () {
     // currentPostDataがある(indexから遷移した時)
     // 通信せずにcurrentPostDataをそのまま使う
     if (this.hasPost) {
-      this.init();
-    }
-    // currentPostDataがない場合(url直接叩いたとき)
-    // →getPost()実行してcurrentPostDataにデータを入れる
-    else {
+      this.init()
+    } else {
+      // currentPostDataがない場合(url直接叩いたとき)
+      // →getPost()実行してcurrentPostDataにデータを入れる
       this.$store.dispatch('getPost', this.$route.params.id)
-      .then((result)=>{
-        return this.$store.dispatch('setCurrentPost', result);
-      })
-      .then(()=>{
-        return this.init();
-      });
+        .then((result) => {
+          return this.$store.dispatch('setCurrentPost', result)
+        })
+        .then(() => {
+          return this.init()
+        })
     }
   }
-};
+}
 </script>
 
 <style lang='scss' module>
@@ -169,7 +167,6 @@ export default {
 @import "~styles/config";
 @import "~styles/mixin";
 @import "~styles/extend";
-
 
 %fixedImage {
   position: fixed;
@@ -189,10 +186,7 @@ export default {
 
 .article {
   cursor: url("images/cursor_close.png") 9 9, auto;
-  cursor: -webkit-image-set(
-    url("images/cursor_close.png") 1x,
-    url("images/cursor_close-2x.png") 2x
-  ) 9 9, auto;
+  cursor: -webkit-image-set(url("images/cursor_close.png") 1x, url("images/cursor_close-2x.png") 2x) 9 9, auto;
 }
 
 .multiImage {
@@ -247,8 +241,9 @@ export default {
 }
 
 .content {
-  margin-top: 20px;
   @extend %content;
+
+  margin-top: 20px;
 
   @include mq($mq_spLarge) {
     margin-top: 13px;
@@ -283,10 +278,11 @@ export default {
 .tag {
   display: inline;
 
-  &:before {
+  &::before {
     content: ", ";
   }
-  &:first-child:before {
+
+  &:first-child::before {
     content: "";
   }
 }

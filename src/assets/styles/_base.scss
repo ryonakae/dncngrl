@@ -11,12 +11,12 @@
 html {
   box-sizing: border-box;
 }
+
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
-
 
 // web fonts
 // webpackのaliasで解決するために、`~fonts/...`というパスにする
@@ -25,11 +25,9 @@ html {
 @include font-face("Noto Sans Japanese", "~fonts/NotoSansCJKjp-DemiLight", $file-formats: woff2 woff);
 @include font-face("Noto Sans Japanese", "~fonts/NotoSansCJKjp-Bold", bold, $file-formats: woff2 woff);
 
-
 html {
   font-size: 62.5%;
 }
-
 
 body {
   background-color: $bgColor_default;
@@ -52,6 +50,7 @@ body {
     background-color: rgba($textColor_default, 0.85);
     color: $bgColor_default;
   }
+
   & ::selection {
     background-color: rgba($textColor_default, 0.85);
     color: $bgColor_default;
@@ -61,77 +60,85 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
   @include mq($mq_spLarge) {
     font-size: $fontSize_default_sp;
   }
 }
 
-
 a {
   @extend %link;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: $lineHeight_title;
 }
 
-
 // glitch
 @keyframes glitch_flash {
-  5%  { opacity: 1 }
-  6%  { opacity: 0 }
-  7%  { opacity: 1 }
-  60% { opacity: 1 }
-  61% { opacity: 0 }
-  62% { opacity: 1 }
+  5% { opacity: 1; }
+  6% { opacity: 0; }
+  7% { opacity: 1; }
+  60% { opacity: 1; }
+  61% { opacity: 0; }
+  62% { opacity: 1; }
 }
+
 @keyframes glitch_shift_1 {
-  0%   { transform: translate3d(4px, 2px, 0); }
-  20%  { transform: translate3d(-5px, -2px, 0); }
-  40%  { transform: translate3d(2px, 1px, 0); }
-  60%  { transform: translate3d(-2px, -1px, 0); }
-  80%  { transform: translate3d(-4px, 1px, 0); }
+  0% { transform: translate3d(4px, 2px, 0); }
+  20% { transform: translate3d(-5px, -2px, 0); }
+  40% { transform: translate3d(2px, 1px, 0); }
+  60% { transform: translate3d(-2px, -1px, 0); }
+  80% { transform: translate3d(-4px, 1px, 0); }
 }
+
 @keyframes glitch_shift_2 {
-  0%   { transform: translate3d(2px, -1px, 0); }
-  25%  { transform: translate3d(-4px, 1px, 0); }
-  50%  { transform: translate3d(-3px, -1px, 0); }
-  75%  { transform: translate3d(5px, 1px, 0); }
+  0% { transform: translate3d(2px, -1px, 0); }
+  25% { transform: translate3d(-4px, 1px, 0); }
+  50% { transform: translate3d(-3px, -1px, 0); }
+  75% { transform: translate3d(5px, 1px, 0); }
   100% { transform: translate3d(2px, -2px, 0); }
 }
+
 @keyframes glitch_shift_3 {
-  0%   { transform: translate3d(-2px, 1px, 0); }
-  33%  { transform: translate3d(7px, -1px, 0); }
-  66%  { transform: translate3d(-1px, -2px, 0); }
-  88%  { transform: translate3d(3px, 2px, 0); }
+  0% { transform: translate3d(-2px, 1px, 0); }
+  33% { transform: translate3d(7px, -1px, 0); }
+  66% { transform: translate3d(-1px, -2px, 0); }
+  88% { transform: translate3d(3px, 2px, 0); }
   100% { transform: translate3d(-2px, -1px, 0); }
 }
+
 @keyframes glitch_image_1 {
-  0%   { mix-blend-mode: screen; }
-  25%  { mix-blend-mode: hue; }
-  50%  { mix-blend-mode: saturation; }
-  75%  { mix-blend-mode: hue; }
+  0% { mix-blend-mode: screen; }
+  25% { mix-blend-mode: hue; }
+  50% { mix-blend-mode: saturation; }
+  75% { mix-blend-mode: hue; }
   100% { mix-blend-mode: screen; }
 }
+
 @keyframes glitch_image_2 {
-  0%   { mix-blend-mode: luminosity; }
-  25%  { mix-blend-mode: hue; }
-  50%  { mix-blend-mode: normal; }
-  75%  { mix-blend-mode: saturation; }
+  0% { mix-blend-mode: luminosity; }
+  25% { mix-blend-mode: hue; }
+  50% { mix-blend-mode: normal; }
+  75% { mix-blend-mode: saturation; }
   100% { mix-blend-mode: color; }
 }
+
 @keyframes glitch_image_3 {
-  0%   { mix-blend-mode: hue; }
-  25%  { mix-blend-mode: luminosity; }
-  50%  { mix-blend-mode: color; }
-  75%  { mix-blend-mode: saturation; }
+  0% { mix-blend-mode: hue; }
+  25% { mix-blend-mode: luminosity; }
+  50% { mix-blend-mode: color; }
+  75% { mix-blend-mode: saturation; }
   100% { mix-blend-mode: hue; }
 }
 
-
 .glitch {
-  animation-duration: .12s;
+  animation-duration: $duration_glitch;
   animation-timing-function: linear;
   position: relative;
   transform: translate3d(0, 0, 0);
@@ -143,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   &-item {
-    animation-duration: .12s;
+    animation-duration: $duration_glitch;
     animation-timing-function: linear;
     mix-blend-mode: screen;
     position: absolute;
@@ -152,20 +159,25 @@ h1, h2, h3, h4, h5, h6 {
     // pointer-events: none;
     // backface-visibility: hidden;
 
-    &.red { background-color: rgb(255,0,0); mix-blend-mode: normal; }
-    &.green { background-color: rgb(0,255,0); }
-    &.blue { background-color: rgb(0,0,255); }
+    &.red {
+      background-color: rgb(255, 0, 0);
+      mix-blend-mode: normal;
+    }
+    &.green { background-color: rgb(0, 255, 0); }
+    &.blue { background-color: rgb(0, 0, 255); }
 
     .pattern-1 & {
       &.red { animation-name: glitch_shift_3; }
       &.green { animation-name: glitch_shift_2; }
       &.blue { animation-name: glitch_shift_1; }
     }
+
     .pattern-2 & {
       &.red { animation-name: glitch_shift_2; }
       &.green { animation-name: glitch_shift_1; }
       &.blue { animation-name: glitch_shift_3; }
     }
+
     .pattern-3 & {
       &.red { animation-name: glitch_shift_1; }
       &.green { animation-name: glitch_shift_3; }
@@ -174,7 +186,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   &-image {
-    animation-duration: .12s;
+    animation-duration: $duration_glitch;
     animation-timing-function: steps(5);
     mix-blend-mode: multiply;
     vertical-align: top;

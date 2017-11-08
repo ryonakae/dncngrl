@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import IndexBgComponent from '../components/IndexBg.vue';
-import IndexThumbComponent from '../components/IndexThumb.vue';
-import {scrollManager} from '../app';
+import IndexBgComponent from '../components/IndexBg.vue'
+import IndexThumbComponent from '../components/IndexThumb.vue'
+import {scrollManager} from '../app'
 
 export default {
   components: {
@@ -24,67 +24,66 @@ export default {
   },
 
   computed: {
-    siteUrl() {
-      return this.$store.state.siteUrl;
+    siteUrl () {
+      return this.$store.state.siteUrl
     },
 
-    posts() {
-      return this.$store.state.allPostData;
+    posts () {
+      return this.$store.state.allPostData
     },
 
-    hasPosts() {
-      return this.posts.length > 0 ? true : false;
+    hasPosts () {
+      return this.posts.length > 0
     },
 
-    perPage() {
-      return this.$store.state.perPage;
-    },
+    perPage () {
+      return this.$store.state.perPage
+    }
   },
 
   methods: {
-    setCurrentPost(post) {
+    setCurrentPost (post) {
       if (this.$route.path === '/') {
-        this.$store.dispatch('setCurrentPost', post);
+        this.$store.dispatch('setCurrentPost', post)
       }
     },
 
-    clearCurrentPost() {
+    clearCurrentPost () {
       if (this.$route.path === '/') {
-        this.$store.dispatch('clearCurrentPost');
+        this.$store.dispatch('clearCurrentPost')
       }
-    },
+    }
   },
 
-  created() {
+  created () {
     // currentPostDataを空にする(bgをリセット)
-    this.clearCurrentPost();
+    this.clearCurrentPost()
   },
 
-  mounted() {
+  mounted () {
     // ページタイトルを変更
-    this.$store.dispatch('changeTitle', '');
+    this.$store.dispatch('changeTitle', '')
 
     // allPostDataがある(一度indexを表示した時)ときは、通信せずにallPostDataをそのまま使う
     // allPostDataがない時だけgetAllPostsする
-    console.log(this.posts.length, this.hasPosts);
+    console.log(this.posts.length, this.hasPosts)
     if (!this.hasPosts) {
-      this.$store.dispatch('getAllPosts', {per_page:this.perPage, offset:0})
-        .then((result)=>{
-          this.$store.dispatch('setAllPost', result);
+      this.$store.dispatch('getAllPosts', {per_page: this.perPage, offset: 0})
+        .then((result) => {
+          this.$store.dispatch('setAllPost', result)
         })
-        .then(()=>{
+        .then(() => {
           // infiniteScrollを有効化
           this.$store.dispatch('initInfiniteScroll', {
             scrollManager: scrollManager,
             path: '/'
-          });
-        });
-    }
-    else {
-      console.log('allPostData already exsist');
+          })
+        })
+    } else {
+      console.log('allPostData already exsist')
     }
   }
-};
+}
 </script>
 
 <style lang='scss' module>

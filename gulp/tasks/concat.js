@@ -21,7 +21,7 @@ gulp.task('concat:js', () => {
     .pipe(concat('lib.js', {
       newLine: '\n\n'
     }))
-    .pipe(gulp.dest(filePath.public.scripts))
+    .pipe(gulp.dest(filePath.dist.scripts))
     .on('end', () => {
       if(env === 'development' && bs.active) gulp.start('bs:reload');
     });

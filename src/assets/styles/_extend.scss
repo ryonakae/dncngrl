@@ -1,14 +1,12 @@
 %link {
+  cursor: pointer;
   color: inherit;
   text-decoration: underline;
 
-  body.is-pc & {
-    &:hover {
-      text-decoration: none;
-    }
+  :global(body.is-pc) &:hover {
+    text-decoration: none;
   }
 }
-
 
 %title {
   font-size: $fontSize_h1;
@@ -18,9 +16,13 @@
   }
 }
 
-
 %content {
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin: 3em 0 1em;
   }
 
@@ -40,7 +42,9 @@
     h6 { font-size: $fontSize_h6 * 0.9; }
   }
 
-  p, ul, ol {
+  p,
+  ul,
+  ol {
     margin: 0 0 1.2em;
   }
 
@@ -63,7 +67,7 @@
   }
 
   p img {
-    margin-bottom: 0,5em;
+    margin-bottom: 0.5em;
   }
 
   hr {

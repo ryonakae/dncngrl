@@ -14,65 +14,66 @@
 </template>
 
 <script>
-import {util} from '../app';
+import {util} from '../app'
 
 export default {
-  data() {
+  data () {
     return {
       $logo: null,
       $default: null,
       $glitch: null
-    };
+    }
   },
 
   computed: {
-    siteTitle() {
-      return this.$store.state.siteTitle;
-    },
+    siteTitle () {
+      return this.$store.state.siteTitle
+    }
   },
 
   methods: {
-    init() {
+    init () {
+      if (!util) return
+
       // タッチデバイスでmouseenterイベントにバインドしてると、ダブルタップしないとリンク押せない
       // pcのときだけmouseenter/mouseleaveイベントにバインド
       // タッチデバイスはtouchstart/touchend
       if (util.getDevice() === 'pc') {
-        this.$logo.on('click', this.onEnter.bind(this));
-        this.$logo.on('mouseenter', this.onEnter.bind(this));
-        this.$logo.on('mouseleave', this.onLeave.bind(this));
-      }
-      else {
-        this.$logo.on('touchstart', this.onEnter.bind(this));
-        this.$logo.on('touchend', this.onLeave.bind(this));
+        this.$logo.on('click', this.onEnter.bind(this))
+        this.$logo.on('mouseenter', this.onEnter.bind(this))
+        this.$logo.on('mouseleave', this.onLeave.bind(this))
+      } else {
+        this.$logo.on('touchstart', this.onEnter.bind(this))
+        this.$logo.on('touchend', this.onLeave.bind(this))
       }
     },
 
-    onEnter() {
-      this.$default.addClass(this.$style.hidden);
-      this.$glitch.removeClass(this.$style.hidden);
+    onEnter () {
+      this.$default.addClass(this.$style.hidden)
+      this.$glitch.removeClass(this.$style.hidden)
 
-      setTimeout(this.onLeave.bind(this), 300);
+      setTimeout(this.onLeave.bind(this), 300)
     },
 
-    onLeave() {
-      this.$default.removeClass(this.$style.hidden);
-      this.$glitch.addClass(this.$style.hidden);
+    onLeave () {
+      this.$default.removeClass(this.$style.hidden)
+      this.$glitch.addClass(this.$style.hidden)
     }
   },
 
-  mounted() {
-    this.$logo = $(this.$refs.logo);
-    this.$default = $(this.$refs.default);
-    this.$glitch = $(this.$refs.glitch);
+  mounted () {
+    this.$logo = $(this.$refs.logo)
+    this.$default = $(this.$refs.default)
+    this.$glitch = $(this.$refs.glitch)
 
-    this.$logo.imagesLoaded(()=>{
-      this.$logo.removeClass(this.$style.hidden);
-      this.onEnter();
-    });
+    this.$logo.imagesLoaded(() => {
+      this.$logo.removeClass(this.$style.hidden)
+      this.onEnter()
+    })
 
-    this.init();
+    this.init()
   }
-};
+}
 </script>
 
 <style lang='scss' module>
@@ -82,6 +83,7 @@ export default {
 
 .header {
   @include clearfix;
+
   position: fixed;
   z-index: 3;
   top: $margin_page;
@@ -150,6 +152,10 @@ export default {
 
   &:first-child {
     margin-left: 0;
+  }
+
+  :global(body.is-pc) &:hover {
+    text-decoration: underline;
   }
 }
 </style>
