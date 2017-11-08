@@ -8,15 +8,15 @@ gulp.task('copyFile', () => {
   return gulp
     .src(
       [
-        filePath.dev.fonts + '**/*',
-        filePath.dev.root + 'assets/audio/**/*',
-        filePath.dev.root + 'assets/video/**/*',
-        filePath.dev.root + '**/*.{php,html}',
-        filePath.dev.root + 'style.css'
+        filePath.src.fonts + '**/*',
+        filePath.src.root + 'assets/audio/**/*',
+        filePath.src.root + 'assets/video/**/*',
+        filePath.src.root + '**/*.{php,html}',
+        filePath.src.root + 'style.css'
       ],
-      { base: filePath.dev.root }
+      { base: filePath.src.root }
     )
-    .pipe(gulp.dest(filePath.public.root))
+    .pipe(gulp.dest(filePath.dist.root))
     .on('end', () => {
       if(env === 'development' && bs.active) gulp.start('bs:reload');
     });

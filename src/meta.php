@@ -67,8 +67,8 @@
 <meta property="og:image" content="<?php echo $og_image; ?>">
 <meta property="og:locale" content="ja_JP">
 
-<meta name="twitter:card" value="summary_large_image">
-<meta name="twitter:title" value="<?php echo $title; ?>">
-<meta name="twitter:description" value="<?php echo $description; ?>">
-<meta name="twitter:image:src" value="<?php echo $og_image; ?>">
-<meta name="twitter:creator" value="@ryo_dg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?php echo $title; ?>">
+<meta name="twitter:description" content="<?php echo $description; ?>">
+<meta name="twitter:image:src" content="<?php echo $og_image; ?>">
+<meta name="twitter:creator" content="@ryo_dg">

@@ -7,38 +7,38 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       page: {}
-    };
+    }
   },
 
   computed: {
-    hasPage() {
-      return Object.keys(this.page).length > 0 ? true : false;
-    },
+    hasPage () {
+      return Object.keys(this.page).length > 0
+    }
   },
 
-  beforeRouteEnter(to, from, next) {
-    next((vm)=>{
-      vm.$store.dispatch('backByEsc', from);
-    });
-  },
-
-  mounted() {
-    this.$store.dispatch('getPage', this.$route.params.slug)
-    .then((result)=>{
-      this.page = result;
-      this.$store.dispatch('changeTitle', result.title.rendered.toUpperCase());
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.$store.dispatch('backByEsc', from)
     })
-    .then(()=>{
-      setTimeout(()=>{
-        // コンテンツを表示
-        $(this.$refs.page).removeClass(this.$style.hidden);
-      }, 10);
-    });
+  },
+
+  mounted () {
+    this.$store.dispatch('getPage', this.$route.params.slug)
+      .then((result) => {
+        this.page = result
+        this.$store.dispatch('changeTitle', result.title.rendered.toUpperCase())
+      })
+      .then(() => {
+        setTimeout(() => {
+          // コンテンツを表示
+          $(this.$refs.page).removeClass(this.$style.hidden)
+        }, 10)
+      })
   }
-};
+}
 </script>
 
 <style lang='scss' module>
@@ -70,6 +70,7 @@ export default {
 .content {
   margin-top: 30px;
   width: 50%;
+
   @extend %content;
 
   @include mq($mq_spLarge) {

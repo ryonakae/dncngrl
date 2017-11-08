@@ -7,24 +7,24 @@ import runSequence from 'run-sequence';
 gulp.task('watch', () => {
   // sass
   watch([
-    filePath.dev.styles + '**/*.{scss,sass,css}'
+    filePath.src.styles + '**/*.{scss,sass,css}'
   ], (event) => {
     gulp.start('sass');
   });
 
   // image minify
-  watch(filePath.dev.images + '**/*', (event) => {
+  watch(filePath.src.images + '**/*', (event) => {
     gulp.start('image:min');
   });
 
   // sprite image
-  watch(filePath.dev.sprite + '*', (event) => {
+  watch(filePath.src.sprite + '*', (event) => {
     runSequence('image:sprite', 'sass');
   });
 
   // js libraries
   watch([
-    filePath.dev.scripts + 'lib/**/*',
+    filePath.src.scripts + 'lib/**/*',
     'gulp/jsLib.js'
   ], (event) => {
     gulp.start('concat:js');
@@ -32,11 +32,11 @@ gulp.task('watch', () => {
 
   // other file
   watch([
-    filePath.dev.fonts + '**/*',
-    filePath.dev.root + 'assets/audio/**/*',
-    filePath.dev.root + 'assets/video/**/*',
-    filePath.dev.root + '**/*.{php,html}',
-    filePath.dev.root + 'style.css'
+    filePath.src.fonts + '**/*',
+    filePath.src.root + 'assets/audio/**/*',
+    filePath.src.root + 'assets/video/**/*',
+    filePath.src.root + '**/*.{php,html}',
+    filePath.src.root + 'style.css'
   ], (event) => {
     gulp.start('copyFile');
   });

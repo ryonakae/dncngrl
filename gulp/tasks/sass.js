@@ -24,8 +24,8 @@ gulp.task('sass', () => {
 
   return gulp
     .src([
-      filePath.dev.styles + '**/*.{scss,sass}',
-      '!' + filePath.dev.styles + '**/_*.{scss,sass}'
+      filePath.src.styles + '**/*.{scss,sass}',
+      '!' + filePath.src.styles + '**/_*.{scss,sass}'
     ])
     .pipe(plumber({
       errorHandler(err) {
@@ -49,6 +49,6 @@ gulp.task('sass', () => {
     }))
     .pipe(gulpif(env === 'development', sourcemaps.write('./')))
     .pipe(gulpif(env === 'production', prodTasks()))
-    .pipe(gulp.dest(filePath.public.styles))
+    .pipe(gulp.dest(filePath.dist.styles))
     .pipe(bs.stream({match: '**/*.css'}));
 });

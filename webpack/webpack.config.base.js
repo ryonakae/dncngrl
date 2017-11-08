@@ -7,7 +7,7 @@ import bourbon from 'node-bourbon';
 
 export default {
   entry: [
-    filePath.dev.scripts + 'app.js'
+    filePath.src.scripts + 'app.js'
   ],
   output: {
     filename: 'app.js'
@@ -39,13 +39,6 @@ export default {
           outputPath: filePath.fonts,
           publicPath: '/' + filePath.theme.fonts
         }
-      },
-      // eslint
-      {
-        test: /\.(js|vue)$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
       },
       // babel js
       {
@@ -81,10 +74,10 @@ export default {
     alias: {
       // webpackでheadに挿入したりbase64エンコードしてcssに入れるファイルがあるパスを記述する
       bourbon: bourbon.includePaths[0] + '/_bourbon.scss',
-      styles: path.resolve(__dirname, '../' + filePath.dev.styles),
-      css: path.resolve(__dirname, '../' + filePath.public.styles),
-      images: path.resolve(__dirname, '../' + filePath.public.images),
-      fonts: path.resolve(__dirname, '../' + filePath.public.fonts)
+      styles: path.resolve(__dirname, '../' + filePath.src.styles),
+      css: path.resolve(__dirname, '../' + filePath.dist.styles),
+      images: path.resolve(__dirname, '../' + filePath.dist.images),
+      fonts: path.resolve(__dirname, '../' + filePath.dist.fonts)
     }
   }
 }

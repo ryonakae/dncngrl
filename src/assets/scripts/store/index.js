@@ -1,11 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import mutations from './mutations';
-import actions from './actions';
-import {util} from '../app';
-console.log(util);
+import Vue from 'vue'
+import Vuex from 'vuex'
+import mutations from './mutations'
+import actions from './actions'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const state = {
   pageTitle: '',
@@ -13,10 +11,9 @@ const state = {
   siteUrl: location.protocol + '//' + location.host,
   allPostData: [],
   currentPostData: {},
-  // perPage: util.getDevice() === 'mobile' ? 6 : 10
-  perPage: 10,
+  perPage: 12,
   perPageMobile: 6
-};
+}
 
 const store = new Vuex.Store({
   // development時のみ厳格モード有効
@@ -25,23 +22,23 @@ const store = new Vuex.Store({
   state,
   mutations,
   actions
-});
+})
 
 // Hot Module Replacementに対応させる
 if (module.hot) {
   module.hot.accept([
     './mutations',
     './actions'
-  ], ()=>{
+  ], () => {
     // import modules
-    const newMutations = require('./mutations').default;
-    const newActions = require('./actions').default;
+    const newMutations = require('./mutations').default
+    const newActions = require('./actions').default
 
     store.hotUpdate({
       mutations: newMutations,
       actions: newActions
-    });
-  });
+    })
+  })
 }
 
-export default store;
+export default store

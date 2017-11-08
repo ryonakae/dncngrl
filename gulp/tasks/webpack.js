@@ -17,7 +17,7 @@ else if (env === 'production') {
 
 gulp.task('webpack', () => {
   return gulp
-    .src(filePath.dev.scripts + 'app.js')
+    .src(filePath.src.scripts + 'app.js')
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(filePath.public.scripts));
+    .pipe(gulp.dest(filePath.dist.scripts));
 });

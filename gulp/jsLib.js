@@ -1,7 +1,7 @@
 import filePath from './filePath';
 
 export default {
-  path: filePath.dev.scripts + 'lib/',
+  path: filePath.src.scripts + 'lib/',
 
   libraries: [
     'jquery.min.js',

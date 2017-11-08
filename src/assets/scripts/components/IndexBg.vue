@@ -5,24 +5,23 @@
 <script>
   export default {
     computed: {
-      currentPost() {
-        return this.$store.state.currentPostData;
+      currentPost () {
+        return this.$store.state.currentPostData
       },
 
-      bgImage() {
-        let bgImage;
+      bgImage () {
+        let bgImage
 
         if (this.currentPost.hasOwnProperty('id')) {
-          bgImage = this.currentPost.acf.images[0].image;
-        }
-        else {
-          bgImage = '';
+          bgImage = this.currentPost.acf.images[0].image.url
+        } else {
+          bgImage = ''
         }
 
-        return bgImage;
+        return bgImage
       }
     }
-  };
+  }
 </script>
 
 <style lang='scss' module>
