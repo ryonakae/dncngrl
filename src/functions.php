@@ -61,4 +61,31 @@ function disable_autosave() {
   wp_deregister_script('autosave');
 }
 add_action('wp_print_scripts', 'disable_autosave');
+
+// カテゴリーを無効化(非表示)
+function unregister_categories() {
+  register_taxonomy('category', array());
+}
+add_action('init', 'unregister_categories');
+unregister_widget( 'WP_Widget_Categories' );
+
+// タグを無効化
+function unregister_tags() {
+  unregister_taxonomy_for_object_type('post_tag', 'post');
+}
+// add_action('init', 'unregister_tags');
+
+// 画像をアップロードしたときにファイル名をタイムスタンプに変更
+function rename_mediafile($filename) {
+	$info = pathinfo($filename);
+	$ext  = empty($info['extension']) ? '' : '.' . $info['extension'];
+	if( $info['filename'] != 'sitemap' ){
+		$filename = strtolower(time().$ext);
+	}
+    return $filename;
+}
+add_filter('sanitize_file_name', 'rename_mediafile', 10);
+
+// Enable ACF 5 early access
+define('ACF_EARLY_ACCESS', '5');
 ?>
