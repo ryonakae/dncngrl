@@ -6,7 +6,6 @@
   },
   "rules": {
     "no-unused-vars": "warn",
-    "no-undef": "warn",
-    "prefer-promise-reject-errors": "warn"
+    "no-undef": "warn"
   }
 }

@@ -48,7 +48,7 @@ export default {
             console.log(res.body)
             // res.bodyが空(これ以上記事ない)ときはrejectを返す
             if (res.body.length === 0) {
-              reject()
+              reject(new Error('error on getAllPosts'))
             } else {
               resolve(res.body)
             }
