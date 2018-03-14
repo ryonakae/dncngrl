@@ -20,7 +20,7 @@ gulp.task('bs:init', () => {
     reloadDelay: 300,
     ghostMode: false,
     proxy: {
-      target: 'dncngrl.dev',
+      target: filePath.proxy,
       middleware: [
         webpackDevMiddleware(bundler, {
           publicPath: webpackConfig.output.publicPath,

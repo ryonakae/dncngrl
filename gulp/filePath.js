@@ -21,5 +21,7 @@ export default {
   theme: {
     images: 'wp-content/themes/d/assets/images/',
     fonts: 'wp-content/themes/d/assets/fonts/',
-  }
+  },
+
+  proxy: 'dncngrl.test'
 };
