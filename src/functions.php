@@ -35,7 +35,7 @@ add_filter('wp_resource_hints', 'remove_dns_prefetch', 10, 2);
 // add_theme_support('post-thumbnails');
 
 // アイキャッチ画像生成時の画質を変更
-// add_filter('jpeg_quality', function($arg){return 95;});
+add_filter('jpeg_quality', function($arg){return 100;});
 
 // セルフピンバックの無効化
 function no_self_ping(&$links){
@@ -70,9 +70,9 @@ add_action('init', 'unregister_categories');
 unregister_widget( 'WP_Widget_Categories' );
 
 // タグを無効化
-function unregister_tags() {
-  unregister_taxonomy_for_object_type('post_tag', 'post');
-}
+// function unregister_tags() {
+//   unregister_taxonomy_for_object_type('post_tag', 'post');
+// }
 // add_action('init', 'unregister_tags');
 
 // 画像をアップロードしたときにファイル名をタイムスタンプに変更
@@ -85,6 +85,21 @@ function rename_mediafile($filename) {
     return $filename;
 }
 add_filter('sanitize_file_name', 'rename_mediafile', 10);
+
+// Cloudinary
+if (function_exists('cloudinary_url')) {
+  // デフォルトのフォーマットを設定
+  add_filter('cloudinary_default_crop', function($crop) {
+    return 'limit';
+  }, 10, 1);
+  add_filter('cloudinary_default_args', function($args) {
+    $args['transform']['crop'] = 'limit';
+    $args['transform']['fetch_format'] = 'auto';
+    $args['transform']['quality'] = 'auto:best';
+    $args['transform']['flags'] = 'progressive';
+    return $args;
+  });
+}
 
 // Enable ACF 5 early access
 define('ACF_EARLY_ACCESS', '5');
