@@ -116,12 +116,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: -60px;
+  margin-top: -$margin_post * 2;
   margin-right: -$margin_post;
   margin-left: -$margin_post;
 
   @include mq($mq_spLarge) {
-    margin-top: -30px;
+    margin-top: -$margin_post_sp * 2;
     margin-right: -$margin_post_sp;
     margin-left: -$margin_post_sp;
   }
@@ -138,6 +138,8 @@ export default {
     width: 100%;
     height: 100%;
     // background-color: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     cursor: pointer;
   }
