@@ -68,7 +68,7 @@ export default {
 }
 
 .content {
-  margin-top: 30px;
+  margin-top: 1.3em;
   width: 50%;
 
   @extend %content;

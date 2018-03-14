@@ -198,7 +198,7 @@ export default {
 
   .pagination {
     position: fixed;
-    bottom: $margin_page - 8px;
+    bottom: $margin_page;
     right: $margin_page;
     z-index: 2;
     font-size: $fontSize_small;
@@ -206,9 +206,8 @@ export default {
     pointer-events: none;
 
     @include mq($mq_spLarge) {
-      bottom: $margin_page_sp - 4px;
+      bottom: $margin_page_sp;
       right: $margin_page_sp;
-      font-size: $fontSize_small_sp;
     }
   }
 }
@@ -220,7 +219,7 @@ export default {
 
 .text {
   position: fixed;
-  bottom: $margin_page - 8px;
+  bottom: $margin_page;
   left: $margin_page;
   z-index: 2;
   width: 50%;
@@ -229,7 +228,7 @@ export default {
 
   @include mq($mq_spLarge) {
     width: 100%;
-    bottom: $margin_page_sp - 4px;
+    bottom: $margin_page_sp;
     left: 0;
     padding-left: $margin_page_sp;
     padding-right: $margin_page_sp;
@@ -243,21 +242,16 @@ export default {
 .content {
   @extend %content;
 
-  margin-top: 20px;
-
-  @include mq($mq_spLarge) {
-    margin-top: 13px;
-  }
+  margin-top: 1.3em;
 }
 
 .info {
+  margin-top: 2em;
   font-size: $fontSize_small;
-  margin-top: 20px;
+  line-height: $lineHeight_title;
 
   @include mq($mq_spLarge) {
-    width: 85%;
-    margin-top: 13px;
-    font-size: $fontSize_small_sp;
+    width: 90%;
   }
 }
 

@@ -80,6 +80,7 @@ export default {
 @import "~bourbon";
 @import "~styles/config";
 @import "~styles/mixin";
+@import "~styles/extend";
 
 .header {
   @include clearfix;
@@ -110,6 +111,8 @@ export default {
   display: block;
   float: left;
   pointer-events: auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   cursor: pointer;
 }
@@ -140,7 +143,8 @@ export default {
 
 .navi {
   float: right;
-  margin-top: 11px;
+  margin-top: 17px;
+  font-size: $fontSize_small;
 }
 
 .naviItem {
@@ -149,13 +153,11 @@ export default {
   margin-left: 30px;
   text-transform: uppercase;
   cursor: pointer;
+  @extend %link;
+  text-decoration: none;
 
   &:first-child {
     margin-left: 0;
-  }
-
-  :global(body.is-pc) &:hover {
-    text-decoration: underline;
   }
 }
 </style>

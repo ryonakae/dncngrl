@@ -26,7 +26,7 @@ html {
 @include font-face("Noto Sans Japanese", "~fonts/NotoSansCJKjp-Bold", bold, $file-formats: woff2 woff);
 
 html {
-  font-size: 62.5%;
+  font-size: 10px;
 }
 
 body {
@@ -34,9 +34,8 @@ body {
   background-image: url('~images/bg.jpg');
   background-size: 400px 400px;
   font-family: $fontFamily_default;
-  font-size: $fontSize_default;
-  line-height: $lineHeight_default;
-  letter-spacing: $letterSpacing_default;
+  font-size: $fontSize;
+  letter-spacing: $letterSpacing;
   font-kerning: normal;
   font-feature-settings: "palt" on;
   color: $textColor_default;
@@ -59,10 +58,6 @@ body {
   @include mq($mq_retina) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  @include mq($mq_spLarge) {
-    font-size: $fontSize_default_sp;
   }
 }
 
