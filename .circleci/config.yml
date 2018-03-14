@@ -4,11 +4,10 @@ version: 2
 defaults: &defaults
   working_directory: ~/dncngrl
   docker:
-    - image: circleci/node:7.10.0
+    - image: circleci/node:8.9.4
 
 jobs:
-  # install npm package
-  npm-install:
+  build-publish:
     <<: *defaults
 
     steps:
@@ -16,47 +15,30 @@ jobs:
 
       - restore_cache:
           keys:
-            - dncngrl-{{ checksum "package.json" }}
+            - dncngrl-{{ checksum "yarn.lock" }}
+            - dncngrl-
 
       - run:
-          name: Install node package
-          command: npm install
+          name: Install node packages
+          command: yarn install --cache-folder ~/.cache/yarn
 
       - save_cache:
-          key: dncngrl-{{ checksum "package.json" }}
+          key: dncngrl-{{ checksum "yarn.lock" }}
           paths:
-            - ./node_modules
-
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory
-          root: ./
-          # Must be relative path from root
-          paths:
-            - node_modules
-
-  # build and publish
-  build-and-publish:
-    <<: *defaults
-
-    steps:
-      - checkout
-
-      - attach_workspace:
-          at: ~/dncngrl
+            - ~/.cache/yarn
 
       - run:
           name: Build
-          command: npm run build
+          command: yarn run build
 
       - run:
           name: Erase and move files
           command: |
             find . -maxdepth 1 -type f -not -name '.gitmodules' | xargs rm -rf
-            find . -maxdepth 1 -type d -not -name '.' -not -name '.git' -not -name 'server' -not -name 'dist' | xargs rm -rf
-            mv dist theme
+            find . -maxdepth 1 -type d -not -name '.' -not -name '.git' -not -name 'server' -not -name 'theme' | xargs rm -rf
 
       - deploy:
-          name: Deploy and publich
+          name: Publish
           command: |
             git config --global user.name  "CircleCI"
             git config --global user.email "circleci@dncngrl.com"
@@ -70,16 +52,8 @@ workflows:
 
   deploy:
     jobs:
-      # masterへpull requestがmergeされたとき(masterにcommitがあったとき)だけ実行
-      - npm-install:
-          filters:
-            branches:
-              only:
-                - master
-
-      - build-and-publish:
-          requires:
-            - npm-install
+      - build-publish:
+          # masterへpull requestがmergeされたとき(masterにcommitがあったとき)
           filters:
             branches:
               only: master

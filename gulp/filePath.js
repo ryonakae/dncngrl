@@ -10,12 +10,12 @@ export default {
   },
 
   dist: {
-    root:    './dist/',
-    assets:  './dist/assets/',
-    styles:  './dist/assets/styles/',
-    scripts: './dist/assets/scripts/',
-    images:  './dist/assets/images/',
-    fonts:   './dist/assets/fonts/'
+    root:    './theme/',
+    assets:  './theme/assets/',
+    styles:  './theme/assets/styles/',
+    scripts: './theme/assets/scripts/',
+    images:  './theme/assets/images/',
+    fonts:   './theme/assets/fonts/'
   },
 
   theme: {
