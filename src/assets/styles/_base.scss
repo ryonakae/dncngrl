@@ -30,15 +30,15 @@ html {
 }
 
 body {
-  background-color: $bgColor_default;
+  background-color: $color_bg;
   background-image: url('~images/bg.jpg');
   background-size: 400px 400px;
-  font-family: $fontFamily_default;
+  font-family: $fontFamily;
   font-size: $fontSize;
   letter-spacing: $letterSpacing;
   font-kerning: normal;
   font-feature-settings: "palt" on;
-  color: $textColor_default;
+  color: $color_key;
   word-wrap: break-word;
   overflow-wrap: break-word;
   -webkit-text-size-adjust: 100%;
@@ -46,13 +46,13 @@ body {
   -moz-osx-font-smoothing: unset;
 
   & ::-moz-selection {
-    background-color: rgba($textColor_default, 0.85);
-    color: $bgColor_default;
+    background-color: rgba($color_key, 0.85);
+    color: $color_bg;
   }
 
   & ::selection {
-    background-color: rgba($textColor_default, 0.85);
-    color: $bgColor_default;
+    background-color: rgba($color_key, 0.85);
+    color: $color_bg;
   }
 
   @include mq($mq_retina) {
