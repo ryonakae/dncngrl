@@ -1,16 +1,19 @@
 {
   "license": "Apache-2.0",
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
   "scripts": {
-    "start": "gulp --env=development",
-    "build": "gulp --env=production",
+    "start": "gulp --env development",
+    "build": "gulp --env production",
     "lint:script": "eslint 'src/**/*.{js, vue}' --ignore-pattern 'src/**/lib'",
     "lint:style": "stylelint 'src/**/*.{scss, vue}' --syntax scss",
     "lint": "npm run lint:script && npm run lint:style"
+  },
+  "dependencies": {
+    "moment": "^2.19.2",
+    "superagent": "^3.8.1",
+    "ua-parser-js": "^0.7.17",
+    "vue": "^2.5.3",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
@@ -30,7 +33,6 @@
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^2.1.0",
     "file-loader": "^1.1.5",
-    "fs": "^0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-cache": "^1.0.1",
@@ -50,7 +52,6 @@
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.1",
     "node-bourbon": "^4.2.8",
-    "path": "^0.12.7",
     "require-dir": "^0.3.2",
     "run-sequence": "^2.2.0",
     "sass-loader": "^6.0.6",
@@ -67,13 +68,5 @@
     "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.1",
     "webpack-stream": "^4.0.0"
-  },
-  "dependencies": {
-    "moment": "^2.19.2",
-    "superagent": "^3.8.1",
-    "ua-parser-js": "^0.7.17",
-    "vue": "^2.5.3",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
   }
 }

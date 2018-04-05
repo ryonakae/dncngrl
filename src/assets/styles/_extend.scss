@@ -6,7 +6,7 @@
   :global(body.is-pc) &:hover {
     text-decoration: none;
     background-color: $color_key;
-    color: $bgColor_default;
+    color: $color_bg;
   }
 }
 
@@ -23,7 +23,8 @@
   h4,
   h5,
   h6 {
-    margin: 1.3em 0 0.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
   }
 
   h1 { font-size: $fontSize_h1; }
@@ -33,26 +34,46 @@
   h5 { font-size: $fontSize_h5; }
   h6 { font-size: $fontSize_h6; }
 
+  @include mq($mq_spLarge) {
+    h1 { font-size: $fontSize_h1_sp; }
+    h2 { font-size: $fontSize_h2_sp; }
+    h3 { font-size: $fontSize_h3_sp; }
+    h4 { font-size: $fontSize_h4_sp; }
+    h5 { font-size: $fontSize_h5_sp; }
+    h6 { font-size: $fontSize_h6_sp; }
+  }
+
   p,
   ul,
   ol {
-    margin: 1em 0;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.3em;
+
+    & ul,
+    & ol {
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+    }
   }
 
   ul {
     list-style-type: disc;
-    padding-left: 1.3em;
   }
 
   ol {
     list-style-type: decimal;
-    padding-left: 1.3em;
   }
 
   img {
     display: inline-block;
     line-height: 0;
-    margin: 1.3em 0;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
     width: 100%;
     height: auto;
     vertical-align: top;
@@ -65,16 +86,17 @@
   hr {
     width: 10%;
     height: 1px;
-    background-color: $borderColor_default;
+    background-color: $color_border;
     border: none;
-    margin: 2em auto;
+    margin: 2.5em auto;
   }
 
   blockquote {
-    margin: 1.3em 0;
-    border-left: 1px solid $borderColor_default;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border-left: 1px solid $color_border;
     padding-left: 1.3em;
-    color: $textColor_gray;
+    color: $color_sub;
   }
 
   a {
