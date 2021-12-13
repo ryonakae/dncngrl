@@ -1,11 +1,6 @@
-.DS_Store
-
-logs
-*.log
-npm-debug.log*
-
 node_modules
-theme
-_sprite.*
-
-!.gitkeep
+*.log
+.nuxt
+nuxt.d.ts
+.output
+.env
