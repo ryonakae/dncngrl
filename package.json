@@ -5,16 +5,16 @@
     "ua-parser-js": "^0.7.17"
   },
   "devDependencies": {
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge",
     "@nuxtjs/eslint-config-typescript": "^8.0.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.1.2",
-    "nuxi": "^0.10.1",
-    "nuxt3": "latest",
+    "nuxt-edge": "latest",
     "prettier": "^2.5.1",
     "sass": "^1.45.0",
-    "sass-loader": "^12.4.0",
+    "sass-loader": "^10.0.0",
     "typescript": "^4.5.3"
   },
   "lint-staged": {
@@ -24,12 +24,11 @@
   },
   "private": true,
   "scripts": {
-    "build": "nuxi build",
+    "build": "nuxi generate",
     "dev": "nuxi dev",
     "fix": "yarn lint:prettier --write && yarn lint:eslint --fix",
     "lint:eslint": "eslint --ext .ts,.js,.vue .",
     "lint:prettier": "prettier --check .",
-    "prepare": "husky install",
-    "start": "node .output/server/index.mjs"
+    "prepare": "husky install"
   }
 }

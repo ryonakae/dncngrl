@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <h1>hoge</h1>
     <ul class="posts">
       <!-- <li v-for="post in posts" v-if="hasPosts" :key="post.id" class="post" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
         <router-link :to="'/post/'+post.id" tag="div" class="inner">
@@ -11,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from '#app'
 
 export default defineComponent({
   name: 'IndexPage',
