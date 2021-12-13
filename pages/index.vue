@@ -16,11 +16,13 @@ import { defineComponent } from '#app'
 
 export default defineComponent({
   name: 'IndexPage',
+
   data() {
     return {
       posts: []
     }
   },
+
   computed: {
     hasPosts(): boolean {
       return this.posts.length > 0
