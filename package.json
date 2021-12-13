@@ -18,7 +18,9 @@
   "scripts": {
     "build": "nuxi build",
     "dev": "nuxi dev -o",
-    "lint": "eslint --ext .ts,.js,.vue .",
+    "fix": "yarn lint:prettier --write && yarn lint:eslint --fix",
+    "lint:eslint": "eslint --ext .ts,.js,.vue .",
+    "lint:prettier": "prettier --check .",
     "start": "node .output/server/index.mjs"
   }
 }
