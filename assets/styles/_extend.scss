@@ -27,20 +27,44 @@
     margin-bottom: 0.5em;
   }
 
-  h1 { font-size: $fontSize_h1; }
-  h2 { font-size: $fontSize_h2; }
-  h3 { font-size: $fontSize_h3; }
-  h4 { font-size: $fontSize_h4; }
-  h5 { font-size: $fontSize_h5; }
-  h6 { font-size: $fontSize_h6; }
+  h1 {
+    font-size: $fontSize_h1;
+  }
+  h2 {
+    font-size: $fontSize_h2;
+  }
+  h3 {
+    font-size: $fontSize_h3;
+  }
+  h4 {
+    font-size: $fontSize_h4;
+  }
+  h5 {
+    font-size: $fontSize_h5;
+  }
+  h6 {
+    font-size: $fontSize_h6;
+  }
 
   @include mq($mq_spLarge) {
-    h1 { font-size: $fontSize_h1_sp; }
-    h2 { font-size: $fontSize_h2_sp; }
-    h3 { font-size: $fontSize_h3_sp; }
-    h4 { font-size: $fontSize_h4_sp; }
-    h5 { font-size: $fontSize_h5_sp; }
-    h6 { font-size: $fontSize_h6_sp; }
+    h1 {
+      font-size: $fontSize_h1_sp;
+    }
+    h2 {
+      font-size: $fontSize_h2_sp;
+    }
+    h3 {
+      font-size: $fontSize_h3_sp;
+    }
+    h4 {
+      font-size: $fontSize_h4_sp;
+    }
+    h5 {
+      font-size: $fontSize_h5_sp;
+    }
+    h6 {
+      font-size: $fontSize_h6_sp;
+    }
   }
 
   p,
