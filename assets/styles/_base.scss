@@ -1,0 +1,312 @@
+@import 'bourbon';
+@import '_config';
+@import '_mixin';
+@import '_extend';
+
+// reset / normalize
+@import 'lib/_reset';
+@import 'lib/_swiper';
+
+// reset box-sizing
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+// web fonts
+@include font-face(
+  'Neue Frutiger',
+  'assets/fonts/NeueFrutiger-Book',
+  ('woff2', 'woff')
+);
+@include font-face(
+  'Neue Frutiger',
+  'assets/fonts/NeueFrutiger-Bold',
+  ('woff2', 'woff')
+) {
+  font-weight: bold;
+}
+@include font-face(
+  'Noto Sans Japanese',
+  'assets/fonts/NotoSansCJKjp-DemiLight',
+  ('woff2', 'woff')
+);
+@include font-face(
+  'Noto Sans Japanese',
+  'assets/fonts/NotoSansCJKjp-Bold',
+  ('woff2', 'woff')
+) {
+  font-weight: bold;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: $color_bg;
+  background-image: url('assets/images/bg.jpg');
+  background-size: 400px 400px;
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  letter-spacing: $letterSpacing;
+  font-kerning: normal;
+  font-feature-settings: 'palt' on;
+  color: $color_key;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: unset;
+
+  & ::-moz-selection {
+    background-color: rgba($color_key, 0.85);
+    color: $color_bg;
+  }
+
+  & ::selection {
+    background-color: rgba($color_key, 0.85);
+    color: $color_bg;
+  }
+
+  @include mq($mq_retina) {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+a {
+  @extend %link;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: $lineHeight_title;
+}
+
+// glitch
+@keyframes glitch_flash {
+  5% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0;
+  }
+  7% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  61% {
+    opacity: 0;
+  }
+  62% {
+    opacity: 1;
+  }
+}
+
+@keyframes glitch_shift_1 {
+  0% {
+    transform: translate3d(4px, 2px, 0);
+  }
+  20% {
+    transform: translate3d(-5px, -2px, 0);
+  }
+  40% {
+    transform: translate3d(2px, 1px, 0);
+  }
+  60% {
+    transform: translate3d(-2px, -1px, 0);
+  }
+  80% {
+    transform: translate3d(-4px, 1px, 0);
+  }
+}
+
+@keyframes glitch_shift_2 {
+  0% {
+    transform: translate3d(2px, -1px, 0);
+  }
+  25% {
+    transform: translate3d(-4px, 1px, 0);
+  }
+  50% {
+    transform: translate3d(-3px, -1px, 0);
+  }
+  75% {
+    transform: translate3d(5px, 1px, 0);
+  }
+  100% {
+    transform: translate3d(2px, -2px, 0);
+  }
+}
+
+@keyframes glitch_shift_3 {
+  0% {
+    transform: translate3d(-2px, 1px, 0);
+  }
+  33% {
+    transform: translate3d(7px, -1px, 0);
+  }
+  66% {
+    transform: translate3d(-1px, -2px, 0);
+  }
+  88% {
+    transform: translate3d(3px, 2px, 0);
+  }
+  100% {
+    transform: translate3d(-2px, -1px, 0);
+  }
+}
+
+@keyframes glitch_image_1 {
+  0% {
+    mix-blend-mode: screen;
+  }
+  25% {
+    mix-blend-mode: hue;
+  }
+  50% {
+    mix-blend-mode: saturation;
+  }
+  75% {
+    mix-blend-mode: hue;
+  }
+  100% {
+    mix-blend-mode: screen;
+  }
+}
+
+@keyframes glitch_image_2 {
+  0% {
+    mix-blend-mode: luminosity;
+  }
+  25% {
+    mix-blend-mode: hue;
+  }
+  50% {
+    mix-blend-mode: normal;
+  }
+  75% {
+    mix-blend-mode: saturation;
+  }
+  100% {
+    mix-blend-mode: color;
+  }
+}
+
+@keyframes glitch_image_3 {
+  0% {
+    mix-blend-mode: hue;
+  }
+  25% {
+    mix-blend-mode: luminosity;
+  }
+  50% {
+    mix-blend-mode: color;
+  }
+  75% {
+    mix-blend-mode: saturation;
+  }
+  100% {
+    mix-blend-mode: hue;
+  }
+}
+
+.glitch {
+  animation-duration: $duration_glitch;
+  animation-timing-function: linear;
+  position: relative;
+  transform: translate3d(0, 0, 0);
+
+  &.pattern-1,
+  &.pattern-2,
+  &.pattern-3 {
+    animation-name: glitch_flash;
+  }
+
+  &-item {
+    animation-duration: $duration_glitch;
+    animation-timing-function: linear;
+    mix-blend-mode: screen;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // pointer-events: none;
+    // backface-visibility: hidden;
+
+    &.red {
+      background-color: rgb(255, 0, 0);
+      mix-blend-mode: normal;
+    }
+    &.green {
+      background-color: rgb(0, 255, 0);
+    }
+    &.blue {
+      background-color: rgb(0, 0, 255);
+    }
+
+    .pattern-1 & {
+      &.red {
+        animation-name: glitch_shift_3;
+      }
+      &.green {
+        animation-name: glitch_shift_2;
+      }
+      &.blue {
+        animation-name: glitch_shift_1;
+      }
+    }
+
+    .pattern-2 & {
+      &.red {
+        animation-name: glitch_shift_2;
+      }
+      &.green {
+        animation-name: glitch_shift_1;
+      }
+      &.blue {
+        animation-name: glitch_shift_3;
+      }
+    }
+
+    .pattern-3 & {
+      &.red {
+        animation-name: glitch_shift_1;
+      }
+      &.green {
+        animation-name: glitch_shift_3;
+      }
+      &.blue {
+        animation-name: glitch_shift_2;
+      }
+    }
+  }
+
+  &-image {
+    animation-duration: $duration_glitch;
+    animation-timing-function: steps(5);
+    mix-blend-mode: multiply;
+    vertical-align: top;
+
+    .pattern-1 & {
+      animation-name: glitch_image_1;
+    }
+    .pattern-2 & {
+      animation-name: glitch_image_2;
+    }
+    .pattern-3 & {
+      animation-name: glitch_image_3;
+    }
+  }
+}

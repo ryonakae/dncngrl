@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bourbon": "^7.0.0",
     "dayjs": "^1.10.7",
     "ua-parser-js": "^0.7.17"
   },
@@ -24,7 +25,7 @@
   "private": true,
   "scripts": {
     "build": "nuxi build",
-    "dev": "nuxi dev -o",
+    "dev": "nuxi dev",
     "fix": "yarn lint:prettier --write && yarn lint:eslint --fix",
     "lint:eslint": "eslint --ext .ts,.js,.vue .",
     "lint:prettier": "prettier --check .",
