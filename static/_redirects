@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+https://wizardly-boyd-865296.netlify.app/* https://dncngrl.com/:splat 301!
