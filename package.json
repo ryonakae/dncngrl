@@ -6,7 +6,7 @@
     "jquery": "^3.6.0",
     "nuxt": "^2.15.8",
     "superagent": "^6.1.0",
-    "swiper": "^5.4.5",
+    "swiper": "^6.5.1",
     "ua-parser-js": "^0.7.17"
   },
   "devDependencies": {
