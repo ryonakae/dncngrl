@@ -1,40 +1,85 @@
 <template>
-  <div class="page">
-    <h1>hoge</h1>
-    <ul class="posts">
-      <!-- <li v-for="post in posts" v-if="hasPosts" :key="post.id" class="post" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
-        <router-link :to="'/post/'+post.id" tag="div" class="inner">
-          <index-thumb-component :post="post"/>
-        </router-link>
-      </li> -->
+  <div :class="$style.page">
+    <ul v-if="hasPosts" :class="$style.posts">
+      <li
+        v-for="post in posts"
+        :key="post.id"
+        :class="$style.post"
+        @mouseenter="setCurrentPost(post)"
+        @mouseleave="clearCurrentPost"
+        @touchstart="setCurrentPost(post)"
+        @touchend="clearCurrentPost"
+      >
+        <NuxtLink :to="'/post/' + post.id" tag="div" :class="$style.inner">
+          <IndexThumb :post="post" />
+        </NuxtLink>
+      </li>
     </ul>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '#app'
-
-export default defineComponent({
+<script>
+export default {
   name: 'IndexPage',
-
-  data() {
+  async asyncData({ store, route, $config }) {
+    const posts = await store.dispatch('getAllPosts', {
+      wpSiteUrl: $config.wpSiteUrl,
+      queryOptions: {
+        per_page: store.state.perPage,
+        offset: 0
+      }
+    })
+    return { posts }
+  },
+  head() {
     return {
-      posts: []
+      titleTemplate: undefined,
+      meta: [
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: this.$config.siteTitle,
+          template: '%s'
+        }
+      ]
     }
   },
 
   computed: {
-    hasPosts(): boolean {
+    hasPosts() {
       return this.posts.length > 0
+    },
+
+    perPage() {
+      return this.$store.state.perPage
+    }
+  },
+
+  created() {
+    // currentPostDataを空にする(bgをリセット)
+    this.clearCurrentPost()
+  },
+
+  methods: {
+    setCurrentPost(post) {
+      if (this.$route.path === '/') {
+        this.$store.dispatch('setCurrentPost', post)
+      }
+    },
+
+    clearCurrentPost() {
+      if (this.$route.path === '/') {
+        this.$store.dispatch('clearCurrentPost')
+      }
     }
   }
-})
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 @import 'bourbon';
-@import 'assets/styles/config';
-@import 'assets/styles/mixin';
+@import '~/assets/styles/config';
+@import '~/assets/styles/mixin';
 
 .page {
   margin: 0 auto $margin_page;

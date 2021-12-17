@@ -1,29 +1,30 @@
 <template>
-  <header class="header">
-    <NuxtLink to="/" tag="h1" class="title">
-      <div ref="logo" class="logo hidden">
+  <header :class="$style.header">
+    <NuxtLink to="/" tag="h1" :class="$style.title">
+      <div ref="logo" :class="[$style.logo, $style.hidden]">
         <img
           ref="default"
-          class="default hidden"
-          src="~images/logo.png"
-          :alt="siteTitle"
+          :class="[$style.default, $style.hidden]"
+          src="~/assets/images/logo.png"
         />
-        <img ref="glitch" class="glitch" src="~images/logo_glitch.gif" />
+        <img
+          ref="glitch"
+          :class="$style.glitch"
+          src="~/assets/images/logo_glitch.gif"
+        />
       </div>
     </NuxtLink>
 
-    <ul class="navi">
-      <NuxtLink to="/about" tag="li" class="naviItem">About</NuxtLink>
+    <ul :class="$style.navi">
+      <NuxtLink to="/about" tag="li" :class="$style.naviItem">About</NuxtLink>
     </ul>
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, useNuxtApp } from '#app'
+<script>
+import imagesLoaded from 'imagesloaded'
 
-export default defineComponent({
-  name: 'HeaderComponent',
-
+export default {
   data() {
     return {
       $logo: null,
@@ -32,18 +33,12 @@ export default defineComponent({
     }
   },
 
-  computed: {
-    siteTitle(): string {
-      return this.$store.state.siteTitle
-    }
-  },
-
   mounted() {
     this.$logo = $(this.$refs.logo)
     this.$default = $(this.$refs.default)
     this.$glitch = $(this.$refs.glitch)
 
-    this.$logo.imagesLoaded(() => {
+    imagesLoaded(this.$logo, () => {
       this.$logo.removeClass(this.$style.hidden)
       this.onEnter()
     })
@@ -53,12 +48,10 @@ export default defineComponent({
 
   methods: {
     init() {
-      if (!util) return
-
       // タッチデバイスでmouseenterイベントにバインドしてると、ダブルタップしないとリンク押せない
       // pcのときだけmouseenter/mouseleaveイベントにバインド
       // タッチデバイスはtouchstart/touchend
-      if (util.getDevice() === 'pc') {
+      if (this.$util.getDevice() === 'pc') {
         this.$logo.on('click', this.onEnter.bind(this))
         this.$logo.on('mouseenter', this.onEnter.bind(this))
         this.$logo.on('mouseleave', this.onLeave.bind(this))
@@ -80,14 +73,14 @@ export default defineComponent({
       this.$glitch.addClass(this.$style.hidden)
     }
   }
-})
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 @import 'bourbon';
-@import 'assets/styles/config';
-@import 'assets/styles/mixin';
-@import 'assets/styles/extend';
+@import '~/assets/styles/config';
+@import '~/assets/styles/mixin';
+@import '~/assets/styles/extend';
 
 .header {
   @include clearfix;

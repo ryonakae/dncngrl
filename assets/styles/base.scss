@@ -1,11 +1,10 @@
 @import 'bourbon';
-@import '_config';
-@import '_mixin';
-@import '_extend';
+@import '~/assets/styles/config';
+@import '~/assets/styles/mixin';
+@import '~/assets/styles/extend';
 
 // reset / normalize
-@import 'lib/_reset';
-@import 'lib/_swiper';
+@import '~/assets/styles/reset';
 
 // reset box-sizing
 html {
@@ -21,26 +20,23 @@ html {
 // web fonts
 @include font-face(
   'Neue Frutiger',
-  'assets/fonts/NeueFrutiger-Book',
-  ('woff2', 'woff')
+  '~/assets/fonts/NeueFrutiger-Book',
+  ('woff2')
 );
 @include font-face(
   'Neue Frutiger',
-  'assets/fonts/NeueFrutiger-Bold',
-  ('woff2', 'woff')
+  '~/assets/fonts/NeueFrutiger-Bold',
+  ('woff2')
 ) {
   font-weight: bold;
 }
+@include font-face('YakuHanJPs', '~/assets/fonts/YakuHanJPs-Light', ('woff2'));
 @include font-face(
-  'Noto Sans Japanese',
-  'assets/fonts/NotoSansCJKjp-DemiLight',
-  ('woff2', 'woff')
+  'YakuHanJP',
+  '~/assets/fonts/YakuHanJP-DemiLight',
+  ('woff2')
 );
-@include font-face(
-  'Noto Sans Japanese',
-  'assets/fonts/NotoSansCJKjp-Bold',
-  ('woff2', 'woff')
-) {
+@include font-face('YakuHanJP', '~/assets/fonts/YakuHanJP-Medium', ('woff2')) {
   font-weight: bold;
 }
 
@@ -50,7 +46,7 @@ html {
 
 body {
   background-color: $color_bg;
-  background-image: url('assets/images/bg.jpg');
+  background-image: url('~/assets/images/bg.jpg');
   background-size: 400px 400px;
   font-family: $fontFamily;
   font-size: $fontSize;

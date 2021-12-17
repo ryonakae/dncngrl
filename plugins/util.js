@@ -1,5 +1,4 @@
 import UAParser from 'ua-parser-js'
-
 const parser = new UAParser()
 const ua = parser.getResult()
 
@@ -48,6 +47,6 @@ export class Util {
 
 export const util = new Util()
 
-export default (_: any, inject: any): void => {
+export default (_, inject) => {
   inject('util', util)
 }

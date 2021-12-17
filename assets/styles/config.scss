@@ -5,9 +5,8 @@ $color_sub: rgba($color_key, 0.5);
 $color_border: rgba(#fff, 0.05);
 
 // font family;
-$fontFamily: 'Neue Frutiger', 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica,
-  Arial, 'Noto Sans Japanese', 'ヒラギノ角ゴ ProN W3',
-  'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+$fontFamily: 'Neue Frutiger', YakuHanJPs, YakuHanJP, 'Noto Sans JP', system-ui,
+  sans-serif;
 
 // font size;
 $fontSize: 1.5rem;

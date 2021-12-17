@@ -1,14 +1,14 @@
 <template>
   <header :class="$style.header">
-    <router-link :to="'/'" tag="h1" :class="$style.title">
+    <NuxtLink :to="'/'" tag="h1" :class="$style.title">
       <div :class="[$style.logo, $style.hidden]" ref="logo">
         <img :class="[$style.default, $style.hidden]" src="~images/logo.png" :alt="siteTitle" ref="default">
         <img :class="$style.glitch" src="~images/logo_glitch.gif" ref="glitch">
       </div>
-    </router-link>
+    </NuxtLink>
 
     <ul :class="$style.navi">
-      <router-link :to="'/about'" tag="li" :class="$style.naviItem">About</router-link>
+      <NuxtLink :to="'/about'" tag="li" :class="$style.naviItem">About</NuxtLink>
     </ul>
   </header>
 </template>

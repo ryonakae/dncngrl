@@ -1,10 +1,10 @@
 @import "~bourbon";
-@import "_config";
-@import "_mixin";
-@import "_extend";
+@import "config";
+@import "mixin";
+@import "extend";
 
 // reset / normalize
-@import "lib/_reset";
+@import "lib/reset";
 @import "lib/_swiper";
 
 // reset box-sizing

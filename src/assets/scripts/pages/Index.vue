@@ -2,9 +2,9 @@
   <div :class="$style.page">
     <ul :class="$style.posts">
       <li :class="$style.post" v-if="hasPosts" v-for="post in posts" :key="post.id" @mouseenter="setCurrentPost(post)" @mouseleave="clearCurrentPost" @touchstart="setCurrentPost(post)" @touchend="clearCurrentPost">
-        <router-link :to="'/post/'+post.id" tag="div" :class="$style.inner">
+        <NuxtLink :to="'/post/'+post.id" tag="div" :class="$style.inner">
           <index-thumb-component :post="post"></index-thumb-component>
-        </router-link>
+        </NuxtLink>
       </li>
     </ul>
 

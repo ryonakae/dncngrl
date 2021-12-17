@@ -1,114 +1,22 @@
 {
-  // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "target": "ES2018",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
     "paths": {
-      "~~": ["."],
-      "~~/*": ["./*"],
-      "@@": ["."],
-      "@@/*": ["./*"],
-      "~": ["."],
       "~/*": ["./*"],
-      "@": ["."],
       "@/*": ["./*"],
-      "assets": ["assets"],
-      "assets/*": ["assets/*"],
-      "static": ["static"],
-      "#app": ["node_modules/@nuxt/bridge/dist/runtime/index"],
-      "#build": [".nuxt"],
-      "#build/*": [".nuxt/*"],
-      "vue2": ["vue"],
-      "vue2-bridge": ["node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"],
-      "vue-demi": ["node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"],
-      "vue/dist/vue.common.dev": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.common.dev.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.common": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.common.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.common.prod": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.common.prod.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm.browser": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm.browser.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm.browser.min": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm.browser.min.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.esm.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue": ["node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"],
-      "vue/dist/vue.js": ["node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"],
-      "vue/dist/vue.min": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.min.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common.dev": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common.dev.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common.prod": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.common.prod.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.esm": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.esm.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.min": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "vue/dist/vue.runtime.min.js": [
-        "node_modules/@nuxt/bridge/dist/runtime/vue2-bridge"
-      ],
-      "@nuxtjs/composition-api": [
-        "node_modules/@nuxt/bridge/dist/runtime/capi.legacy"
-      ],
-      "#imports": [".nuxt/imports"],
-      "#meta": [".nuxt/meta"],
-      "#config": ["@nuxt/nitro"],
-      "#storage": ["@nuxt/nitro"],
-      "#assets": ["@nuxt/nitro"],
       "*": ["./@types/*"]
-    }
-  }
+    },
+    "types": ["@nuxt/types", "@types/node"]
+  },
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }
