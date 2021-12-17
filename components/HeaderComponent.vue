@@ -1,23 +1,31 @@
 <template>
   <header :class="$style.header">
-    <NuxtLink :to="'/'" tag="h1" :class="$style.title">
-      <div :class="[$style.logo, $style.hidden]" ref="logo">
-        <img :class="[$style.default, $style.hidden]" src="~images/logo.png" :alt="siteTitle" ref="default">
-        <img :class="$style.glitch" src="~images/logo_glitch.gif" ref="glitch">
+    <NuxtLink to="/" tag="h1" :class="$style.title">
+      <div ref="logo" :class="[$style.logo, $style.hidden]">
+        <img
+          ref="default"
+          :class="[$style.default, $style.hidden]"
+          src="~/assets/images/logo.png"
+        />
+        <img
+          ref="glitch"
+          :class="$style.glitch"
+          src="~/assets/images/logo_glitch.gif"
+        />
       </div>
     </NuxtLink>
 
     <ul :class="$style.navi">
-      <NuxtLink :to="'/about'" tag="li" :class="$style.naviItem">About</NuxtLink>
+      <NuxtLink to="/about" tag="li" :class="$style.naviItem">About</NuxtLink>
     </ul>
   </header>
 </template>
 
 <script>
-import {util} from '../app'
+import imagesLoaded from 'imagesloaded'
 
 export default {
-  data () {
+  data() {
     return {
       $logo: null,
       $default: null,
@@ -25,20 +33,25 @@ export default {
     }
   },
 
-  computed: {
-    siteTitle () {
-      return this.$store.state.siteTitle
-    }
+  mounted() {
+    this.$logo = $(this.$refs.logo)
+    this.$default = $(this.$refs.default)
+    this.$glitch = $(this.$refs.glitch)
+
+    imagesLoaded(this.$logo, () => {
+      this.$logo.removeClass(this.$style.hidden)
+      this.onEnter()
+    })
+
+    this.init()
   },
 
   methods: {
-    init () {
-      if (!util) return
-
+    init() {
       // タッチデバイスでmouseenterイベントにバインドしてると、ダブルタップしないとリンク押せない
       // pcのときだけmouseenter/mouseleaveイベントにバインド
       // タッチデバイスはtouchstart/touchend
-      if (util.getDevice() === 'pc') {
+      if (this.$util.getDevice() === 'pc') {
         this.$logo.on('click', this.onEnter.bind(this))
         this.$logo.on('mouseenter', this.onEnter.bind(this))
         this.$logo.on('mouseleave', this.onLeave.bind(this))
@@ -48,39 +61,26 @@ export default {
       }
     },
 
-    onEnter () {
+    onEnter() {
       this.$default.addClass(this.$style.hidden)
       this.$glitch.removeClass(this.$style.hidden)
 
       setTimeout(this.onLeave.bind(this), 300)
     },
 
-    onLeave () {
+    onLeave() {
       this.$default.removeClass(this.$style.hidden)
       this.$glitch.addClass(this.$style.hidden)
     }
-  },
-
-  mounted () {
-    this.$logo = $(this.$refs.logo)
-    this.$default = $(this.$refs.default)
-    this.$glitch = $(this.$refs.glitch)
-
-    this.$logo.imagesLoaded(() => {
-      this.$logo.removeClass(this.$style.hidden)
-      this.onEnter()
-    })
-
-    this.init()
   }
 }
 </script>
 
-<style lang='scss' module>
-@import "~bourbon";
-@import "~styles/config";
-@import "~styles/mixin";
-@import "~styles/extend";
+<style lang="scss" module>
+@import 'bourbon';
+@import '~/assets/styles/config';
+@import '~/assets/styles/mixin';
+@import '~/assets/styles/extend';
 
 .header {
   @include clearfix;
@@ -113,7 +113,7 @@ export default {
   pointer-events: auto;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: pointer;
 }
 
