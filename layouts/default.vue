@@ -2,7 +2,7 @@
   <div id="app">
     <HeaderComponent />
     <Nuxt />
-    <IndexBg v-if="$route.name !== 'page'" />
+    <IndexBg v-show="$route.name === 'index'" />
   </div>
 </template>
 
